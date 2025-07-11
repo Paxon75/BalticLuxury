@@ -1,36 +1,743 @@
-
 <!DOCTYPE html>
-<html lang="pl" class="scroll-smooth">
-  <head>
+<html lang="pl">
+<head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Luksusowe Apartamenty Międzyzdroje | Twój Raj nad Bałtykiem</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Luksusowe Apartamenty Międzyzdroje | Wersja HTML5 z Galerią</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
     <style>
-      body {
-        font-family: 'Montserrat', sans-serif;
-      }
-      h1, h2, h3, h4, h5, h6 {
-        font-family: 'Playfair Display', serif;
-      }
+        /* === Zmienne CSS (Custom Properties) === */
+        :root {
+            --color-amber-500: #f59e0b;
+            --color-amber-600: #d97706;
+            --color-slate-50: #f8fafc;
+            --color-slate-100: #f1f5f9;
+            --color-slate-200: #e2e8f0;
+            --color-slate-600: #475569;
+            --color-slate-800: #1e293b;
+            --color-slate-900: #0f172a;
+            --color-white: #ffffff;
+            --font-primary: 'Montserrat', sans-serif;
+            --font-secondary: 'Playfair Display', serif;
+        }
+
+        /* === Reset i Style Globalne === */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--color-slate-50);
+            color: var(--color-slate-800);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-secondary);
+        }
+
+        .container {
+            max-width: 1140px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+        
+        section {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+        @media (min-width: 1024px) {
+            section {
+                padding-top: 8rem;
+                padding-bottom: 8rem;
+            }
+        }
+
+        /* === Komponenty Pomocnicze === */
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--color-slate-800);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--color-slate-600);
+            max-width: 42rem;
+            margin: 0 auto 4rem auto;
+            text-align: center;
+        }
+
+        /* === Header / Nawigacja === */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .main-header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-slate-800);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+                gap: 2rem;
+            }
+            .nav-links a {
+                color: var(--color-slate-600);
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+            .nav-links a:hover {
+                color: var(--color-amber-600);
+            }
+        }
+        
+        /* === Hero Section === */
+        #hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            text-align: center;
+            padding: 0 1rem;
+        }
+        .hero-bg, .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .hero-bg {
+            background-image: url('https://picsum.photos/seed/beach/1920/1080');
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-overlay {
+            background-color: rgba(15, 23, 42, 0.6);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin-bottom: 1rem;
+        }
+        .hero-content p {
+            font-size: 1.125rem;
+            max-width: 48rem;
+            margin: 0 auto;
+            font-weight: 300;
+            color: var(--color-slate-200);
+        }
+        .hero-cta {
+            display: inline-block;
+            margin-top: 2rem;
+            background-color: var(--color-amber-500);
+            color: var(--color-white);
+            font-weight: 700;
+            padding: 1rem 2.5rem;
+            border-radius: 0.5rem;
+            font-size: 1.125rem;
+            text-decoration: none;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            transition: background-color 0.3s;
+        }
+        .hero-cta:hover {
+            background-color: var(--color-amber-600);
+        }
+        @media (min-width: 768px) {
+            .hero-content h1 { font-size: 4.5rem; }
+            .hero-content p { font-size: 1.5rem; }
+        }
+
+        /* === O Nas Section === */
+        #o-nas {
+            background-color: var(--color-slate-50);
+        }
+        #o-nas .container {
+            max-width: 48rem;
+            text-align: center;
+        }
+        #o-nas h2 {
+            margin-bottom: 1.5rem;
+        }
+        #o-nas p {
+            font-size: 1.125rem;
+            line-height: 1.75;
+            color: var(--color-slate-600);
+        }
+
+        /* === Apartamenty Section === */
+        #apartamenty {
+            background-color: var(--color-slate-100);
+        }
+        .apartment-card {
+            margin-bottom: 5rem;
+            background-color: var(--color-white);
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        .apartment-card:last-child {
+            margin-bottom: 0;
+        }
+        .apartment-content {
+            padding: 2rem;
+        }
+        .apartment-card .main-image {
+            width: 100%;
+            height: 15rem;
+            object-fit: cover;
+        }
+        .apartment-subtitle {
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.875rem;
+            color: var(--color-amber-500);
+            font-weight: 600;
+        }
+        .apartment-title {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+            font-weight: 700;
+            margin-top: 0.25rem;
+            color: #000;
+        }
+        .apartment-description {
+            margin-top: 1rem;
+            color: var(--color-slate-600);
+        }
+        .features-grid {
+            margin-top: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .feature-item svg {
+            width: 2rem;
+            height: 2rem;
+            color: var(--color-amber-600);
+            flex-shrink: 0;
+        }
+        .feature-item .label {
+            font-size: 0.875rem;
+            color: var(--color-slate-500);
+        }
+        .feature-item .value {
+            font-weight: 600;
+            color: var(--color-slate-800);
+        }
+
+        @media (min-width: 768px) {
+            .apartment-card {
+                display: flex;
+            }
+            .apartment-card .image-wrapper {
+                flex-shrink: 0;
+                width: 50%;
+            }
+            .apartment-card .main-image {
+                height: 100%;
+            }
+            .apartment-content {
+                padding: 3rem;
+            }
+            .features-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        /* === NOWE STYLE: Galeria Zdjęć === */
+        .gallery-wrapper {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--color-slate-200);
+        }
+        .gallery-wrapper h4 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            font-family: var(--font-primary);
+            font-weight: 600;
+        }
+        .thumbnail-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .thumbnail-gallery a {
+            display: block;
+            width: calc(33.333% - 0.666rem); /* 3 kolumny z odstępem */
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .thumbnail-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .thumbnail-gallery a:hover img {
+            transform: scale(1.1);
+        }
+        @media (min-width: 768px) {
+             .thumbnail-gallery a {
+                width: calc(20% - 0.8rem); /* 5 kolumn na większych ekranach */
+             }
+        }
+        
+        /* === NOWE STYLE: Lightbox (Powiększenie) === */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Ukrycie domyślne */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+        }
+        /* Pokazanie po kliknięciu */
+        .lightbox:target {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.4s ease;
+        }
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 0.25rem;
+        }
+        .lightbox .close, .lightbox .prev, .lightbox .next {
+            position: absolute;
+            color: var(--color-white);
+            text-decoration: none;
+            font-size: 3rem;
+            font-weight: 100;
+            line-height: 1;
+            padding: 0.5rem;
+            transition: opacity 0.2s;
+            z-index: 101;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none; /* Standard */
+        }
+        .lightbox .close:hover, .lightbox .prev:hover, .lightbox .next:hover {
+            opacity: 0.7;
+        }
+        .lightbox .close {
+            top: 1rem;
+            right: 1.5rem;
+        }
+        .lightbox .prev, .lightbox .next {
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.3);
+            border-radius: 5px;
+            padding: 0.5rem 1rem;
+        }
+        .lightbox .prev {
+            left: 1rem;
+        }
+        .lightbox .next {
+            right: 1rem;
+        }
+        
+        /* === Atuty Section === */
+        #atuty {
+            background-color: var(--color-white);
+        }
+        .amenities-grid {
+            display: grid;
+            gap: 3rem;
+        }
+        @media (min-width: 768px) {
+            .amenities-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        .amenity-item {
+            text-align: center;
+        }
+        .amenity-item .icon-wrapper {
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: center;
+        }
+        .amenity-item svg {
+            width: 3rem;
+            height: 3rem;
+            color: var(--color-amber-500);
+        }
+        .amenity-item h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--color-slate-900);
+        }
+        .amenity-item p {
+            color: var(--color-slate-600);
+            line-height: 1.75;
+        }
+
+        /* === Kontakt Section === */
+        #kontakt {
+            background-color: var(--color-slate-900);
+            color: var(--color-white);
+        }
+        #kontakt .section-title {
+            color: var(--color-white);
+        }
+        #kontakt .section-subtitle {
+            color: var(--color-slate-200);
+            margin-bottom: 2.5rem;
+        }
+        .contact-card {
+            max-width: 32rem;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+        .contact-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .contact-card .role {
+            color: var(--color-slate-200);
+            margin-bottom: 1.5rem;
+        }
+        .contact-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .contact-buttons a {
+            display: block;
+            width: 100%;
+            text-align: center;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .contact-buttons .btn-call {
+            background-color: var(--color-amber-500);
+            color: var(--color-white);
+        }
+        .contact-buttons .btn-call:hover {
+            background-color: var(--color-amber-600);
+        }
+        .contact-buttons .btn-email {
+            background-color: var(--color-slate-600);
+            color: var(--color-white);
+        }
+        .contact-buttons .btn-email:hover {
+            background-color: #64748b; /* slate-500 */
+        }
+
+        /* === Footer === */
+        footer {
+            background-color: var(--color-slate-900);
+            color: var(--color-slate-600);
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://esm.sh/react@^19.1.0/",
-    "react": "https://esm.sh/react@^19.1.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.1.0/"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
 </head>
-  <body class="bg-slate-50 text-slate-800">
-    <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
-  </body>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <nav>
+                <a href="#hero" class="logo">BalticLuxury</a>
+                <div class="nav-links">
+                    <a href="#o-nas">O Nas</a>
+                    <a href="#apartamenty">Apartamenty</a>
+                    <a href="#atuty">Atuty</a>
+                    <a href="#kontakt">Kontakt</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1>Odkryj Swój Raj</h1>
+                <p>Luksusowe apartamenty w Międzyzdrojach z widokiem na Bałtyk – bezpośrednio przy plaży.</p>
+                <a href="#apartamenty" class="hero-cta">Zobacz Apartamenty</a>
+            </div>
+        </section>
+
+        <section id="o-nas">
+            <div class="container">
+                <h2 class="section-title">Wyobraź sobie...</h2>
+                <p>...poranek, słońce delikatnie muskające Twoją twarz, a w tle kojący szum fal. Otwierasz oczy i pierwsze, co widzisz, to niekończący się błękit Bałtyku. To nie sen, to Twoja nowa rzeczywistość w naszym ekskluzywnym apartamencie w Międzyzdrojach.</p>
+            </div>
+        </section>
+
+        <section id="apartamenty">
+            <div class="container">
+                <h2 class="section-title">Twój Prywatny Kawałek Nieba</h2>
+                <p class="section-subtitle">Każdy apartament to esencja luksusu i dobrego smaku, zaprojektowana by zapewnić Ci maksymalny komfort.</p>
+                
+                <article class="apartment-card">
+                    <div class="image-wrapper">
+                        <img class="main-image" src="https://picsum.photos/seed/perla1/800/600" alt="Apartament Perła">
+                    </div>
+                    <div class="apartment-content">
+                        <p class="apartment-subtitle">Elegancja z panoramicznym widokiem</p>
+                        <h3 class="apartment-title">Apartament Perła</h3>
+                        <p class="apartment-description">Apartament Perła to kwintesencja nadmorskiego luksusu. Zaprojektowany z myślą o najbardziej wymagających gościach, oferuje niezapomniany, panoramiczny widok na Bałtyk.</p>
+                        <div class="features-grid">
+                           <div class="feature-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-4.67c.12-.241.253-.476.398-.702a9.38 9.38 0 00-2.625-.372M16.5 7.5c0-2.485-2.015-4.5-4.5-4.5S7.5 5.015 7.5 7.5c0 2.485 2.015 4.5 4.5 4.5s4.5-2.015 4.5-4.5z" /></svg>
+                                <div><span class="label">Goście</span><span class="value">2-4</span></div>
+                            </div>
+                            <div class="feature-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" /></svg>
+                                <div><span class="label">Sypialnie</span><span class="value">1</span></div>
+                            </div>
+                            <div class="feature-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" /></svg>
+                                <div><span class="label">Pow.</span><span class="value">55 m²</span></div>
+                            </div>
+                        </div>
+
+                        <div class="gallery-wrapper">
+                            <h4>Galeria Zdjęć</h4>
+                            <div class="thumbnail-gallery">
+                                <a href="#perla-img1"><img src="https://picsum.photos/seed/perla1/300/300" alt="Widok z salonu"></a>
+                                <a href="#perla-img2"><img src="https://picsum.photos/seed/perla2/300/300" alt="Sypialnia z widokiem"></a>
+                                <a href="#perla-img3"><img src="https://picsum.photos/seed/perla3/300/300" alt="Taras"></a>
+                                <a href="#perla-img4"><img src="https://picsum.photos/seed/perla4/300/300" alt="Łazienka"></a>
+                                <a href="#perla-img5"><img src="https://picsum.photos/seed/perla5/300/300" alt="Kuchnia"></a>
+                                <a href="#perla-img6"><img src="https://picsum.photos/seed/perla6/300/300" alt="Detal w salonie"></a>
+                                
+                                </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="apartment-card">
+                    <div class="image-wrapper">
+                         <img class="main-image" src="https://picsum.photos/seed/bursztyn1/800/600" alt="Apartament Bursztyn">
+                    </div>
+                    <div class="apartment-content">
+                        <p class="apartment-subtitle">Komfort i styl dla całej rodziny</p>
+                        <h3 class="apartment-title">Apartament Bursztyn</h3>
+                        <p class="apartment-description">Przestronne i stylowe wnętrze, stworzone z myślą o rodzinnych wakacjach. Dwie oddzielne sypialnie zapewniają komfort i prywatność, a duży salon jest idealnym miejscem do wspólnego spędzania czasu.</p>
+                        <div class="features-grid">
+                            <div class="feature-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-4.67c.12-.241.253-.476.398-.702a9.38 9.38 0 00-2.625-.372M16.5 7.5c0-2.485-2.015-4.5-4.5-4.5S7.5 5.015 7.5 7.5c0 2.485 2.015 4.5 4.5 4.5s4.5-2.015 4.5-4.5z" /></svg>
+                                <div><span class="label">Goście</span><span class="value">4-6</span></div>
+                            </div>
+                            <div class="feature-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" /></svg>
+                                <div><span class="label">Sypialnie</span><span class="value">2</span></div>
+                            </div>
+                            <div class="feature-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" /></svg>
+                                <div><span class="label">Pow.</span><span class="value">70 m²</span></div>
+                            </div>
+                        </div>
+
+                        <div class="gallery-wrapper">
+                            <h4>Galeria Zdjęć</h4>
+                            <div class="thumbnail-gallery">
+                                <a href="#bursztyn-img1"><img src="https://picsum.photos/seed/bursztyn1/300/300" alt="Salon w apartamencie Bursztyn"></a>
+                                <a href="#bursztyn-img2"><img src="https://picsum.photos/seed/bursztyn2/300/300" alt="Główna sypialnia"></a>
+                                <a href="#bursztyn-img3"><img src="https://picsum.photos/seed/bursztyn3/300/300" alt="Druga sypialnia"></a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="atuty">
+             <div class="container">
+                <h2 class="section-title">Luksus w każdym detalu</h2>
+                <p class="section-subtitle">Zapewniamy wszystko, czego potrzebujesz do idealnego wypoczynku.</p>
+                <div class="amenities-grid">
+                    <div class="amenity-item">
+                        <div class="icon-wrapper">
+                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                        </div>
+                        <h3>Bezpieczeństwo i Prywatność</h3>
+                        <p>Nowe, kameralne osiedle zamknięte. Cały teren jest całodobowo strzeżony i monitorowany, co daje Ci pełen spokój ducha.</p>
+                    </div>
+                    <div class="amenity-item">
+                        <div class="icon-wrapper">
+                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H6.624a2.056 2.056 0 00-1.58.86 17.903 17.903 0 00-3.213 9.193c-.04.62.469 1.124 1.09 1.124h1.125" /></svg>
+                        </div>
+                        <h3>Komfort bez Kompromisów</h3>
+                        <p>Do Twojej dyspozycji jest prywatne, dedykowane miejsce parkingowe. W Międzyzdrojach, zwłaszcza w sezonie, to prawdziwe złoto.</p>
+                    </div>
+                    <div class="amenity-item">
+                        <div class="icon-wrapper">
+                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </div>
+                        <h3>Krok od Morza</h3>
+                        <p>Wystarczy kilka kroków, by poczuć pod stopami ciepły piasek i zanurzyć się w orzeźwiających falach morza. Lepszej lokalizacji nie znajdziesz.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="kontakt">
+            <div class="container">
+                <h2 class="section-title">Zarezerwuj Swój Pobyt</h2>
+                <p class="section-subtitle">Nie czekaj! Takie perełki rzadko trafiają na rynek. Skontaktuj się z nami już dziś, aby dowiedzieć się więcej. Liczba dostępnych terminów jest ograniczona!</p>
+                <div class="contact-card">
+                    <h3>BalticLuxury Apartments</h3>
+                    <p class="role">Ekspert Rynku Nieruchomości Premium</p>
+                    <div class="contact-buttons">
+                        <a href="tel:+48123456789" class="btn-call">Zadzwoń: +48 123 456 789</a>
+                        <a href="mailto:kontakt@balticluxury.pl" class="btn-email">Napisz: kontakt@balticluxury.pl</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 BalticLuxury Apartments. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+    <div class="lightbox" id="perla-img1">
+        <div class="lightbox-content">
+            <a href="#" class="close">&times;</a>
+            <a href="#perla-img6" class="prev">&lsaquo;</a>
+            <a href="#perla-img2" class="next">&rsaquo;</a>
+            <img src="https://picsum.photos/seed/perla1/1200/800" alt="Widok z salonu - powiększenie">
+        </div>
+    </div>
+    <div class="lightbox" id="perla-img2">
+        <div class="lightbox-content">
+            <a href="#" class="close">&times;</a>
+            <a href="#perla-img1" class="prev">&lsaquo;</a>
+            <a href="#perla-img3" class="next">&rsaquo;</a>
+            <img src="https://picsum.photos/seed/perla2/1200/800" alt="Sypialnia z widokiem - powiększenie">
+        </div>
+    </div>
+    <div class="lightbox" id="perla-img3">
+        <div class="lightbox-content">
+            <a href="#" class="close">&times;</a>
+            <a href="#perla-img2" class="prev">&lsaquo;</a>
+            <a href="#perla-img4" class="next">&rsaquo;</a>
+            <img src="https://picsum.photos/seed/perla3/1200/800" alt="Taras - powiększenie">
+        </div>
+    </div>
+    <div class="lightbox" id="perla-img4">
+        <div class="lightbox-content">
+            <a href="#" class="close">&times;</a>
+            <a href="#perla-img3" class="prev">&lsaquo;</a>
+            <a href="#perla-img5" class="next">&rsaquo;</a>
+            <img src="https://picsum.photos/seed/perla4/1200/800" alt="Łazienka - powiększenie">
+        </div>
+    </div>
+    <div class="lightbox" id="perla-img5">
+        <div class="lightbox-content">
+            <a href="#" class="close">&times;</a>
+            <a href="#perla-img4" class="prev">&lsaquo;</a>
+            <a href="#perla-img6" class="next">&rsaquo;</a>
+            <img src="https://picsum.photos/seed/perla5/1200/800" alt="Kuchnia - powiększenie">
+        </div>
+    </div>
+    <div class="lightbox" id="perla-img6">
+        <div class="lightbox-content">
+            <a href="#" class="close">&times;</a>
+            <a href="#perla-img5" class="prev">&lsaquo;</a>
+            <a href="#perla-img1" class="next">&rsaquo;</a> <img src="https://picsum.photos/seed/perla6/1200/800" alt="Detal w salonie - powiększenie">
+        </div>
+    </div>
+
+    <div class="lightbox" id="bursztyn-img1">
+        <div class="lightbox-content">
+            <a href="#" class="close">&times;</a>
+            <a href="#bursztyn-img3" class="prev">&lsaquo;</a>
+            <a href="#bursztyn-img2" class="next">&rsaquo;</a>
+            <img src="https://picsum.photos/seed/bursztyn1/1200/800" alt="Salon w apartamencie Bursztyn - powiększenie">
+        </div>
+    </div>
+    <div class="lightbox" id="bursztyn-img2">
+        <div class="lightbox-content">
+            <a href="#" class="close">&times;</a>
+            <a href="#bursztyn-img1" class="prev">&lsaquo;</a>
+            <a href="#bursztyn-img3" class="next">&rsaquo;</a>
+            <img src="https://picsum.photos/seed/bursztyn2/1200/800" alt="Główna sypialnia - powiększenie">
+        </div>
+    </div>
+    <div class="lightbox" id="bursztyn-img3">
+        <div class="lightbox-content">
+            <a href="#" class="close">&times;</a>
+            <a href="#bursztyn-img2" class="prev">&lsaquo;</a>
+            <a href="#bursztyn-img1" class="next">&rsaquo;</a>
+            <img src="https://picsum.photos/seed/bursztyn3/1200/800" alt="Druga sypialnia - powiększenie">
+        </div>
+    </div>
+
+</body>
 </html>

@@ -203,10 +203,9 @@
             color: var(--color-white);
             text-align: center;
             padding: 0 1rem;
-            overflow: hidden; /* Zapobiega wystawaniu wideo */
+            overflow: hidden;
         }
         
-        /* NOWE STYLE DLA WIDEO W TLE */
         .hero-video {
             position: absolute;
             top: 50%;
@@ -216,7 +215,7 @@
             min-height: 100%;
             width: auto;
             height: auto;
-            z-index: 1; /* Pod overlayem i contentem */
+            z-index: 1;
         }
 
         .hero-overlay {
@@ -226,12 +225,12 @@
             width: 100%;
             height: 100%;
             background-color: rgba(15, 23, 42, 0.6);
-            z-index: 2; /* Nad wideo */
+            z-index: 2;
         }
 
         .hero-content {
             position: relative;
-            z-index: 3; /* Na samym wierzchu */
+            z-index: 3;
         }
         .hero-content h1 {
             font-size: 3rem;
@@ -597,7 +596,7 @@
         <section id="hero">
 
             <video class="hero-video" autoplay loop muted playsinline>
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-waves-in-the-sea-near-the-shore-3288-large.mp4" type="video/mp4">
+                <source src="https://paxon75.github.io/BalticLuxury/apartament.mp4" type="video/mp4">
                 Twoja przeglądarka nie obsługuje wideo w tle.
             </video>
             

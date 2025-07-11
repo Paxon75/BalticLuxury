@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Luksusowe Apartamenty Międzyzdroje | Wersja HTML5 z Galerią</title>
+    <title>Luksusowe Apartamenty Międzyzdroje | Ulepszona Wersja HTML5</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,6 +23,7 @@
             --color-white: #ffffff;
             --font-primary: 'Montserrat', sans-serif;
             --font-secondary: 'Playfair Display', serif;
+            --nav-height: 68px; /* Wysokość nawigacji */
         }
 
         /* === Reset i Style Globalne === */
@@ -82,44 +83,115 @@
             text-align: center;
         }
 
-        /* === Header / Nawigacja === */
+        /* === Header / Nawigacja z Menu Hamburger === */
         .main-header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            z-index: 50;
+            z-index: 1000;
             background-color: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px);
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        .main-header nav {
+        .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
+            height: var(--nav-height);
         }
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--color-slate-800);
             text-decoration: none;
+            z-index: 1001;
         }
-        .nav-links {
+
+        /* Ukryty checkbox do sterowania menu */
+        .nav-toggle-checkbox {
             display: none;
         }
+        
+        /* Stylizacja przycisku hamburgera */
+        .hamburger-btn {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 24px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .hamburger-btn span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--color-slate-800);
+            border-radius: 3px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .nav-links {
+            position: fixed;
+            top: 0;
+            left: -100%; /* Domyślnie schowane poza ekranem */
+            width: 70%;
+            max-width: 300px;
+            height: 100vh;
+            background-color: var(--color-white);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            transition: left 0.3s ease-in-out;
+        }
+
+        .nav-links a {
+            color: var(--color-slate-800);
+            text-decoration: none;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        /* Pokazanie menu po zaznaczeniu checkboxa */
+        .nav-toggle-checkbox:checked ~ .nav-container .nav-links {
+            left: 0;
+        }
+
+        /* Animacja hamburgera w 'X' */
+        .nav-toggle-checkbox:checked + .nav-container .hamburger-btn span:nth-child(1) {
+            transform: translateY(10px) rotate(45deg);
+        }
+        .nav-toggle-checkbox:checked + .nav-container .hamburger-btn span:nth-child(2) {
+            opacity: 0;
+        }
+        .nav-toggle-checkbox:checked + .nav-container .hamburger-btn span:nth-child(3) {
+            transform: translateY(-11px) rotate(-45deg);
+        }
+
         @media (min-width: 768px) {
+            .hamburger-btn {
+                display: none; /* Ukryj hamburger na desktopie */
+            }
             .nav-links {
-                display: flex;
-                gap: 2rem;
+                position: static;
+                flex-direction: row;
+                height: auto;
+                width: auto;
+                max-width: none;
+                background-color: transparent;
+                box-shadow: none;
+                left: 0;
             }
             .nav-links a {
+                font-size: 1rem;
+                font-weight: 400;
                 color: var(--color-slate-600);
-                text-decoration: none;
-                transition: color 0.3s;
             }
-            .nav-links a:hover {
+             .nav-links a:hover {
                 color: var(--color-amber-600);
             }
         }
@@ -220,7 +292,7 @@
             margin-bottom: 0;
         }
         .apartment-content {
-            padding: 2rem;
+            padding: 1.5rem;
         }
         .apartment-card .main-image {
             width: 100%;
@@ -289,8 +361,8 @@
                 grid-template-columns: repeat(3, minmax(0, 1fr));
             }
         }
-
-        /* === NOWE STYLE: Galeria Zdjęć === */
+        
+        /* === Galeria Zdjęć === */
         .gallery-wrapper {
             margin-top: 2rem;
             padding-top: 1.5rem;
@@ -305,11 +377,12 @@
         .thumbnail-gallery {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 0.75rem; /* Zmniejszony odstęp dla mobili */
         }
         .thumbnail-gallery a {
             display: block;
-            width: calc(33.333% - 0.666rem); /* 3 kolumny z odstępem */
+            /* 3 kolumny z odstępem */
+            width: calc(33.333% - 0.5rem); 
             aspect-ratio: 1 / 1;
             overflow: hidden;
             border-radius: 0.5rem;
@@ -326,11 +399,13 @@
         }
         @media (min-width: 768px) {
              .thumbnail-gallery a {
-                width: calc(20% - 0.8rem); /* 5 kolumn na większych ekranach */
+                /* 5 kolumn na desktopie */
+                width: calc(20% - 0.8rem); 
+                gap: 1rem;
              }
         }
         
-        /* === NOWE STYLE: Lightbox (Powiększenie) === */
+        /* === Lightbox (Powiększenie) === */
         .lightbox {
             position: fixed;
             top: 0;
@@ -338,16 +413,14 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.85);
-            z-index: 100;
+            z-index: 1001; /* Wyżej niż nawigacja */
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Ukrycie domyślne */
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.4s ease, visibility 0s linear 0.4s;
         }
-        /* Pokazanie po kliknięciu */
         .lightbox:target {
             opacity: 1;
             visibility: visible;
@@ -372,10 +445,9 @@
             line-height: 1;
             padding: 0.5rem;
             transition: opacity 0.2s;
-            z-index: 101;
-            -webkit-user-select: none; /* Safari */
-            -ms-user-select: none; /* IE 10+ */
-            user-select: none; /* Standard */
+            z-index: 1002;
+            -webkit-user-select: none;
+            user-select: none;
         }
         .lightbox .close:hover, .lightbox .prev:hover, .lightbox .next:hover {
             opacity: 0.7;
@@ -506,16 +578,20 @@
 <body>
 
     <header class="main-header">
-        <div class="container">
-            <nav>
-                <a href="#hero" class="logo">BalticLuxury</a>
-                <div class="nav-links">
-                    <a href="#o-nas">O Nas</a>
-                    <a href="#apartamenty">Apartamenty</a>
-                    <a href="#atuty">Atuty</a>
-                    <a href="#kontakt">Kontakt</a>
-                </div>
-            </nav>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox">
+        <div class="container nav-container">
+            <a href="#hero" class="logo">BalticLuxury</a>
+            <label for="nav-toggle" class="hamburger-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <div class="nav-links">
+                <a href="#o-nas">O Nas</a>
+                <a href="#apartamenty">Apartamenty</a>
+                <a href="#atuty">Atuty</a>
+                <a href="#kontakt">Kontakt</a>
+            </div>
         </div>
     </header>
 
@@ -542,7 +618,7 @@
                 <h2 class="section-title">Twój Prywatny Kawałek Nieba</h2>
                 <p class="section-subtitle">Każdy apartament to esencja luksusu i dobrego smaku, zaprojektowana by zapewnić Ci maksymalny komfort.</p>
                 
-                <article class="apartment-card">
+                <article class="apartment-card" id="apartament-perla">
                     <div class="image-wrapper">
                         <img class="main-image" src="https://picsum.photos/seed/perla1/800/600" alt="Apartament Perła">
                     </div>
@@ -574,13 +650,12 @@
                                 <a href="#perla-img4"><img src="https://picsum.photos/seed/perla4/300/300" alt="Łazienka"></a>
                                 <a href="#perla-img5"><img src="https://picsum.photos/seed/perla5/300/300" alt="Kuchnia"></a>
                                 <a href="#perla-img6"><img src="https://picsum.photos/seed/perla6/300/300" alt="Detal w salonie"></a>
-                                
-                                </div>
+                            </div>
                         </div>
                     </div>
                 </article>
 
-                <article class="apartment-card">
+                <article class="apartment-card" id="apartament-bursztyn">
                     <div class="image-wrapper">
                          <img class="main-image" src="https://picsum.photos/seed/bursztyn1/800/600" alt="Apartament Bursztyn">
                     </div>
@@ -589,7 +664,7 @@
                         <h3 class="apartment-title">Apartament Bursztyn</h3>
                         <p class="apartment-description">Przestronne i stylowe wnętrze, stworzone z myślą o rodzinnych wakacjach. Dwie oddzielne sypialnie zapewniają komfort i prywatność, a duży salon jest idealnym miejscem do wspólnego spędzania czasu.</p>
                         <div class="features-grid">
-                            <div class="feature-item">
+                             <div class="feature-item">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-4.67c.12-.241.253-.476.398-.702a9.38 9.38 0 00-2.625-.372M16.5 7.5c0-2.485-2.015-4.5-4.5-4.5S7.5 5.015 7.5 7.5c0 2.485 2.015 4.5 4.5 4.5s4.5-2.015 4.5-4.5z" /></svg>
                                 <div><span class="label">Goście</span><span class="value">4-6</span></div>
                             </div>
@@ -663,12 +738,12 @@
     </main>
     
     <footer>
-        <p>&copy; 2024 BalticLuxury Apartments. Wszelkie prawa zastrzeżone.</p>
+        <p>&copy; 2025 BalticLuxury Apartments. Wszelkie prawa zastrzeżone.</p>
     </footer>
 
     <div class="lightbox" id="perla-img1">
         <div class="lightbox-content">
-            <a href="#" class="close">&times;</a>
+            <a href="#apartament-perla" class="close">&times;</a>
             <a href="#perla-img6" class="prev">&lsaquo;</a>
             <a href="#perla-img2" class="next">&rsaquo;</a>
             <img src="https://picsum.photos/seed/perla1/1200/800" alt="Widok z salonu - powiększenie">
@@ -676,7 +751,7 @@
     </div>
     <div class="lightbox" id="perla-img2">
         <div class="lightbox-content">
-            <a href="#" class="close">&times;</a>
+            <a href="#apartament-perla" class="close">&times;</a>
             <a href="#perla-img1" class="prev">&lsaquo;</a>
             <a href="#perla-img3" class="next">&rsaquo;</a>
             <img src="https://picsum.photos/seed/perla2/1200/800" alt="Sypialnia z widokiem - powiększenie">
@@ -684,7 +759,7 @@
     </div>
     <div class="lightbox" id="perla-img3">
         <div class="lightbox-content">
-            <a href="#" class="close">&times;</a>
+            <a href="#apartament-perla" class="close">&times;</a>
             <a href="#perla-img2" class="prev">&lsaquo;</a>
             <a href="#perla-img4" class="next">&rsaquo;</a>
             <img src="https://picsum.photos/seed/perla3/1200/800" alt="Taras - powiększenie">
@@ -692,7 +767,7 @@
     </div>
     <div class="lightbox" id="perla-img4">
         <div class="lightbox-content">
-            <a href="#" class="close">&times;</a>
+            <a href="#apartament-perla" class="close">&times;</a>
             <a href="#perla-img3" class="prev">&lsaquo;</a>
             <a href="#perla-img5" class="next">&rsaquo;</a>
             <img src="https://picsum.photos/seed/perla4/1200/800" alt="Łazienka - powiększenie">
@@ -700,7 +775,7 @@
     </div>
     <div class="lightbox" id="perla-img5">
         <div class="lightbox-content">
-            <a href="#" class="close">&times;</a>
+            <a href="#apartament-perla" class="close">&times;</a>
             <a href="#perla-img4" class="prev">&lsaquo;</a>
             <a href="#perla-img6" class="next">&rsaquo;</a>
             <img src="https://picsum.photos/seed/perla5/1200/800" alt="Kuchnia - powiększenie">
@@ -708,15 +783,16 @@
     </div>
     <div class="lightbox" id="perla-img6">
         <div class="lightbox-content">
-            <a href="#" class="close">&times;</a>
+            <a href="#apartament-perla" class="close">&times;</a>
             <a href="#perla-img5" class="prev">&lsaquo;</a>
-            <a href="#perla-img1" class="next">&rsaquo;</a> <img src="https://picsum.photos/seed/perla6/1200/800" alt="Detal w salonie - powiększenie">
+            <a href="#perla-img1" class="next">&rsaquo;</a>
+            <img src="https://picsum.photos/seed/perla6/1200/800" alt="Detal w salonie - powiększenie">
         </div>
     </div>
 
     <div class="lightbox" id="bursztyn-img1">
         <div class="lightbox-content">
-            <a href="#" class="close">&times;</a>
+            <a href="#apartament-bursztyn" class="close">&times;</a>
             <a href="#bursztyn-img3" class="prev">&lsaquo;</a>
             <a href="#bursztyn-img2" class="next">&rsaquo;</a>
             <img src="https://picsum.photos/seed/bursztyn1/1200/800" alt="Salon w apartamencie Bursztyn - powiększenie">
@@ -724,7 +800,7 @@
     </div>
     <div class="lightbox" id="bursztyn-img2">
         <div class="lightbox-content">
-            <a href="#" class="close">&times;</a>
+            <a href="#apartament-bursztyn" class="close">&times;</a>
             <a href="#bursztyn-img1" class="prev">&lsaquo;</a>
             <a href="#bursztyn-img3" class="next">&rsaquo;</a>
             <img src="https://picsum.photos/seed/bursztyn2/1200/800" alt="Główna sypialnia - powiększenie">
@@ -732,7 +808,7 @@
     </div>
     <div class="lightbox" id="bursztyn-img3">
         <div class="lightbox-content">
-            <a href="#" class="close">&times;</a>
+            <a href="#apartament-bursztyn" class="close">&times;</a>
             <a href="#bursztyn-img2" class="prev">&lsaquo;</a>
             <a href="#bursztyn-img1" class="next">&rsaquo;</a>
             <img src="https://picsum.photos/seed/bursztyn3/1200/800" alt="Druga sypialnia - powiększenie">

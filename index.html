@@ -30,7 +30,7 @@
         section { padding-top: 5rem; padding-bottom: 5rem; }
         @media (min-width: 1024px) { section { padding-top: 8rem; padding-bottom: 8rem; } }
 
-        .main-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .main-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
         .nav-container { display: flex; justify-content: space-between; align-items: center; height: var(--nav-height); }
         .logo { font-size: 1.5rem; font-weight: 700; color: var(--color-slate-800); text-decoration: none; z-index: 1001; }
         .logo-accent { color: var(--color-amber-500); }
@@ -40,15 +40,15 @@
         .language-switcher img:hover { opacity: 1; transform: scale(1.1); }
         .language-switcher img.lang-active { opacity: 1; transform: scale(1.1); box-shadow: 0 0 0 2px var(--color-amber-500); }
 
-        .nav-toggle-checkbox { display: none; }
-        .hamburger-btn { display: flex; flex-direction: column; justify-content: space-around; width: 30px; height: 24px; cursor: pointer; z-index: 1001; }
-        .hamburger-btn span { display: block; width: 100%; height: 3px; background-color: var(--color-slate-800); border-radius: 3px; transition: all 0.3s ease-in-out; }
-        .nav-links { position: fixed; top: 0; right: -100%; width: 80%; max-width: 320px; height: 100vh; background-color: var(--color-white); box-shadow: -2px 0 10px rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; transition: right 0.4s ease-in-out; }
+        .hamburger-btn { display: flex; flex-direction: column; justify-content: space-around; width: 30px; height: 24px; cursor: pointer; z-index: 1001; background: none; border: none; }
+        .hamburger-btn span { display: block; width: 100%; height: 3px; background-color: var(--color-slate-800); border-radius: 3px; transition: all 0.3s ease-in-out; transform-origin: center; }
+        .nav-links { position: fixed; top: 0; right: -100%; width: 80%; max-width: 320px; height: 100vh; background-color: var(--color-white); box-shadow: -2px 0 10px rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; transition: right 0.4s ease-in-out; padding: 1rem; z-index: 999; }
         .nav-links a { color: var(--color-slate-800); text-decoration: none; font-size: 1.5rem; font-weight: 600; }
-        .nav-toggle-checkbox:checked ~ .nav-links { right: 0; }
-        .nav-toggle-checkbox:checked + .nav-container .header-controls .hamburger-btn span:nth-child(1) { transform: translateY(10.5px) rotate(45deg); }
-        .nav-toggle-checkbox:checked + .nav-container .header-controls .hamburger-btn span:nth-child(2) { opacity: 0; }
-        .nav-toggle-checkbox:checked + .nav-container .header-controls .hamburger-btn span:nth-child(3) { transform: translateY(-10.5px) rotate(-45deg); }
+        
+        .nav-links.is-open { right: 0; }
+        .hamburger-btn.is-active span:nth-child(1) { transform: translateY(10.5px) rotate(45deg); }
+        .hamburger-btn.is-active span:nth-child(2) { opacity: 0; }
+        .hamburger-btn.is-active span:nth-child(3) { transform: translateY(-10.5px) rotate(-45deg); }
 
         #hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; color: var(--color-white); text-align: center; padding: 0 1rem; overflow: hidden; }
         .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
@@ -134,17 +134,16 @@
                     <img src="https://flagcdn.com/w40/gb.png" alt="English Language" data-lang="en">
                     <img src="https://flagcdn.com/w40/de.png" alt="Deutsche Sprache" data-lang="de">
                 </div>
-                <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox">
-                <label for="nav-toggle" class="hamburger-btn">
+                <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation">
                     <span></span>
                     <span></span>
                     <span></span>
-                </label>
+                </button>
             </div>
         </div>
     </header>
 
-    <nav class="nav-links">
+    <nav class="nav-links" id="nav-links">
         <a href="#o-nas" data-key="navAbout">O Nas</a>
         <a href="#apartamenty" data-key="navApartments">Apartamenty</a>
         <a href="#atuty" data-key="navAmenities">Atuty</a>
@@ -233,7 +232,7 @@
                         <h3 data-key="locationTitle">Nasza Lokalizacja</h3>
                         <p data-key="locationDesc">Znajdziesz nas w samym sercu nadmorskiego kurortu. Poniższa mapa pomoże Ci bez trudu do nas dotrzeć.</p>
                         <div class="map-container">
-                            <iframe src="http://googleusercontent.com/maps.google.com/7" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe src="http://googleusercontent.com/maps?q=Promenada%20Gwiazd%201,%20Mi%C4%99dzyzdroje&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                     <div class="contact-column">
@@ -269,6 +268,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+
+            // === KOMPLETNY SŁOWNIK TŁUMACZEŃ ===
             const translations = {
                 pl: {
                     navAbout: 'O Nas',
@@ -378,9 +379,9 @@
                     amenity1Title: 'Sicherheit & Privatsphäre',
                     amenity1Desc: 'Eine neue, intime, geschlossene Wohnanlage. Das gesamte Gelände wird rund um die Uhr bewacht und überwacht, was Ihnen absolute Sorgenfreiheit gibt.',
                     amenity2Title: 'Komfort ohne Kompromisse',
-                    amenity2Desc: 'Ein privater, dedizierter Parkplatz steht Ihnen zur Verfügung. In Misdroy, besonders in der Hochsaison, ist das pures Gold.',
-                    amenity3Title: 'Ein Schritt vom Meer entfernt',
-                    amenity3Desc: 'Nur wenige Schritte genügen, um den warmen Sand unter den Füßen zu spüren und in die erfrischenden Wellen einzutauchen. Eine bessere Lage werden Sie nicht finden.',
+                    amenity2Desc: 'Ein privater, dedizierter Parkplatz steht Ihnen zur Verfügung. In Misdroy, besonders in der Hochsaison, ist das so wertvoll wie Gold.',
+                    amenity3Title: 'Ein Schritt vom Meer',
+                    amenity3Desc: 'Es dauert nur wenige Schritte, um den warmen Sand unter Ihren Füßen zu spüren und in die erfrischenden Wellen einzutauchen. Eine bessere Lage werden Sie nicht finden.',
                     locationTitle: 'Unser Standort',
                     locationDesc: 'Sie finden uns im Herzen des Badeortes. Die untenstehende Karte hilft Ihnen, uns mühelos zu erreichen.',
                     contactTitle: 'Kontaktieren Sie uns',
@@ -391,15 +392,33 @@
                     footerText: '© 2025 BalticLuxury Apartments. Alle Rechte vorbehalten.'
                 }
             };
+            
+            // Logika dla Menu Hamburger
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const navMenu = document.getElementById('nav-links');
+            const navMenuLinks = navMenu.querySelectorAll('a');
 
+            const toggleMenu = () => {
+                hamburgerBtn.classList.toggle('is-active');
+                navMenu.classList.toggle('is-open');
+            };
+
+            hamburgerBtn.addEventListener('click', toggleMenu);
+
+            navMenuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenu.classList.contains('is-open')) {
+                        toggleMenu();
+                    }
+                });
+            });
+
+            // Logika dla Przełączania Języków
             const languageSwitcher = document.querySelector('.language-switcher');
             const flags = languageSwitcher.querySelectorAll('img');
             const translatableElements = document.querySelectorAll('[data-key]');
 
             const setLanguage = (lang) => {
-                // Zamykanie menu hamburgera po zmianie języka
-                document.getElementById('nav-toggle').checked = false;
-
                 const langTranslations = translations[lang];
                 if (!langTranslations) return;
 
@@ -427,10 +446,8 @@
                 }
             });
 
-            // Ustawienie języka domyślnego przy ładowaniu strony
             setLanguage('pl');
         });
     </script>
-
 </body>
 </html>

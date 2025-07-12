@@ -9,119 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     
-    <style>
-        :root {
-            --color-amber-500: #f59e0b;
-            --color-amber-600: #d97706;
-            --color-slate-50: #f8fafc;
-            --color-slate-100: #f1f5f9;
-            --color-slate-800: #1e293b;
-            --color-slate-900: #0f172a;
-            --color-white: #ffffff;
-            --font-primary: 'Montserrat', sans-serif;
-            --font-secondary: 'Playfair Display', serif;
-            --nav-height: 68px;
-        }
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { font-family: var(--font-primary); background-color: var(--color-slate-50); color: var(--color-slate-800); line-height: 1.6; }
-        h1, h2, h3, h4, h5, h6 { font-family: var(--font-secondary); }
-        .container { max-width: 1140px; margin-left: auto; margin-right: auto; padding-left: 1.5rem; padding-right: 1.5rem; }
-        section { padding-top: 5rem; padding-bottom: 5rem; }
-        @media (min-width: 1024px) { section { padding-top: 8rem; padding-bottom: 8rem; } }
-
-        .main-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .nav-container { display: flex; justify-content: space-between; align-items: center; height: var(--nav-height); }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--color-slate-800); text-decoration: none; z-index: 1001; }
-        .logo-accent { color: var(--color-amber-500); }
-        .header-controls { display: flex; align-items: center; gap: 1.5rem; }
-        .language-switcher { display: flex; gap: 0.75rem; }
-        .language-switcher img { width: 28px; height: auto; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); cursor: pointer; opacity: 0.5; transition: opacity 0.3s, transform 0.3s; }
-        .language-switcher img:hover { opacity: 1; transform: scale(1.1); }
-        .language-switcher img.lang-active { opacity: 1; transform: scale(1.1); box-shadow: 0 0 0 2px var(--color-amber-500); }
-
-        .hamburger-btn { display: flex; flex-direction: column; justify-content: space-around; width: 30px; height: 24px; cursor: pointer; z-index: 1001; background: none; border: none; }
-        .hamburger-btn span { display: block; width: 100%; height: 3px; background-color: var(--color-slate-800); border-radius: 3px; transition: all 0.3s ease-in-out; transform-origin: center; }
-        .nav-links { position: fixed; top: 0; right: -100%; width: 80%; max-width: 320px; height: 100vh; background-color: var(--color-white); box-shadow: -2px 0 10px rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; transition: right 0.4s ease-in-out; padding: 1rem; z-index: 999; }
-        .nav-links a { color: var(--color-slate-800); text-decoration: none; font-size: 1.5rem; font-weight: 600; }
-        
-        .nav-links.is-open { right: 0; }
-        .hamburger-btn.is-active span:nth-child(1) { transform: translateY(10.5px) rotate(45deg); }
-        .hamburger-btn.is-active span:nth-child(2) { opacity: 0; }
-        .hamburger-btn.is-active span:nth-child(3) { transform: translateY(-10.5px) rotate(-45deg); }
-
-        #hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; color: var(--color-white); text-align: center; padding: 0 1rem; overflow: hidden; }
-        .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.6); z-index: 2; }
-        .hero-content { position: relative; z-index: 3; }
-        .hero-content h1 { font-size: 3rem; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 1rem; }
-        .hero-content p { font-size: 1.125rem; max-width: 48rem; margin: 0 auto; font-weight: 300; color: var(--color-slate-200); }
-        .hero-cta { display: inline-block; margin-top: 2rem; background-color: var(--color-amber-500); color: var(--color-white); font-weight: 700; padding: 1rem 2.5rem; border-radius: 0.5rem; font-size: 1.125rem; text-decoration: none; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); transition: background-color 0.3s; }
-        .hero-cta:hover { background-color: var(--color-amber-600); }
-        @media (min-width: 768px) { .hero-content h1 { font-size: 4.5rem; } .hero-content p { font-size: 1.5rem; } }
-        #o-nas { background-color: var(--color-slate-50); }
-        #o-nas .container { max-width: 48rem; text-align: center; }
-        #o-nas h2 { margin-bottom: 1.5rem; }
-        #o-nas p { font-size: 1.125rem; line-height: 1.75; color: var(--color-slate-600); }
-        #apartamenty { background-color: var(--color-slate-100); }
-        .apartment-card { margin-bottom: 5rem; background-color: var(--color-white); border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); overflow: hidden; }
-        .apartment-card:last-child { margin-bottom: 0; }
-        .apartment-content { padding: 1.5rem; }
-        .apartment-card .main-image { width: 100%; height: 15rem; object-fit: cover; }
-        .apartment-subtitle { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.875rem; color: var(--color-amber-500); font-weight: 600; }
-        .apartment-title { font-size: 1.875rem; line-height: 2.25rem; font-weight: 700; margin-top: 0.25rem; color: #000; }
-        .apartment-description { margin-top: 1rem; color: var(--color-slate-600); }
-        .features-grid { margin-top: 1.5rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-        .feature-item { display: flex; align-items: center; gap: 0.75rem; }
-        .feature-item svg { width: 2rem; height: 2rem; color: var(--color-amber-600); flex-shrink: 0; }
-        .feature-item .label { font-size: 0.875rem; color: var(--color-slate-600); }
-        .feature-item .value { font-weight: 600; color: var(--color-slate-800); }
-        @media (min-width: 768px) { .apartment-card { display: flex; } .apartment-card .image-wrapper { flex-shrink: 0; width: 50%; } .apartment-card .main-image { height: 100%; } .apartment-content { padding: 3rem; } .features-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-        .gallery-wrapper { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--color-slate-100); }
-        .gallery-wrapper h4 { font-size: 1.25rem; margin-bottom: 1rem; font-family: var(--font-primary); font-weight: 600; }
-        .thumbnail-gallery { display: flex; flex-wrap: wrap; gap: 0.75rem;  }
-        .thumbnail-gallery a { display: block; width: calc(33.333% - 0.5rem); aspect-ratio: 1 / 1; overflow: hidden; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .thumbnail-gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-        .thumbnail-gallery a:hover img { transform: scale(1.1); }
-        @media (min-width: 768px) { .thumbnail-gallery a { width: calc(20% - 0.8rem); gap: 1rem; } }
-        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); z-index: 1001; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0s linear 0.4s; }
-        .lightbox:target { opacity: 1; visibility: visible; transition: opacity 0.4s ease; }
-        .lightbox-content { position: relative; max-width: 90vw; max-height: 90vh; }
-        .lightbox-content img { max-width: 100%; max-height: 90vh; border-radius: 0.25rem; }
-        .lightbox .close, .lightbox .prev, .lightbox .next { position: absolute; color: var(--color-white); text-decoration: none; font-size: 3rem; font-weight: 100; line-height: 1; padding: 0.5rem; transition: opacity 0.2s; z-index: 1002; -webkit-user-select: none; user-select: none; }
-        .lightbox .close:hover, .lightbox .prev:hover, .lightbox .next:hover { opacity: 0.7; }
-        .lightbox .close { top: 1rem; right: 1.5rem; }
-        .lightbox .prev, .lightbox .next { top: 50%; transform: translateY(-50%); background-color: rgba(0,0,0,0.3); border-radius: 5px; padding: 0.5rem 1rem; }
-        .lightbox .prev { left: 1rem; }
-        .lightbox .next { right: 1rem; }
-        #atuty { background-color: var(--color-white); }
-        .amenities-grid { display: grid; gap: 3rem; }
-        @media (min-width: 768px) { .amenities-grid { grid-template-columns: repeat(3, 1fr); } }
-        .amenity-item { text-align: center; }
-        .amenity-item .icon-wrapper { margin-bottom: 1rem; display: flex; justify-content: center; }
-        .amenity-item svg { width: 3rem; height: 3rem; color: var(--color-amber-500); }
-        .amenity-item h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--color-slate-800); }
-        .amenity-item p { color: var(--color-slate-600); line-height: 1.75; }
-        #kontakt { background-color: var(--color-slate-900); color: var(--color-white); }
-        .contact-grid { margin-top: 2rem; display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: stretch; }
-        @media (min-width: 992px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
-        .location-column, .contact-column { display: flex; flex-direction: column; }
-        .location-column h3, .contact-column h3 { color: var(--color-white); font-size: 2.25rem; margin-bottom: 0.5rem; }
-        .location-column p, .contact-column p { color: var(--color-slate-200); margin-bottom: 1.5rem; }
-        .map-container { flex-grow: 1; }
-        .map-container iframe { width: 100%; height: 100%; min-height: 400px; border: 0; border-radius: 0.5rem; filter: grayscale(1); transition: filter 0.3s ease; }
-        .map-container iframe:hover { filter: grayscale(0); }
-        .contact-card { background-color: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 0.5rem; text-align: center; height: 100%; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
-        .contact-card .card-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .contact-card .role { color: var(--color-slate-200); margin-bottom: 1.5rem; }
-        .contact-buttons { display: flex; flex-direction: column; gap: 1rem; }
-        .contact-buttons a { display: block; width: 100%; text-align: center; font-weight: 700; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; transition: background-color 0.3s; }
-        .contact-buttons .btn-call { background-color: var(--color-amber-500); color: var(--color-white); }
-        .contact-buttons .btn-call:hover { background-color: var(--color-amber-600); }
-        .contact-buttons .btn-email { background-color: var(--color-slate-600); color: var(--color-white); }
-        .contact-buttons .btn-email:hover { background-color: #64748b; }
-        footer { background-color: var(--color-slate-900); color: var(--color-slate-600); padding: 2rem 1.5rem; text-align: center; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -174,7 +62,7 @@
         <section id="apartamenty">
             <div class="container">
                 <h2 style="text-align:center;" data-key="apartmentsTitle">Twój Prywatny Kawałek Nieba</h2>
-                <p style="text-align:center; max-width: 42rem; margin: 0 auto 4rem auto; color: var(--color-slate-600);" data-key="apartmentsSubtitle">Każdy apartament to esencja luksusu i dobrego smaku, zaprojektowana by zapewnić Ci maksymalny komfort.</p>
+                <p style="text-align:center; max-width: 42rem; margin: 0 auto 4rem auto;" data-key="apartmentsSubtitle">Każdy apartament to esencja luksusu i dobrego smaku, zaprojektowana by zapewnić Ci maksymalny komfort.</p>
                 
                 <article class="apartment-card" id="apartament-perla">
                     <div class="image-wrapper"><img class="main-image" src="https://picsum.photos/seed/perla1/800/600" alt="Apartament Perła"></div>
@@ -216,7 +104,7 @@
         <section id="atuty">
             <div class="container">
                 <h2 style="text-align:center;" data-key="amenitiesTitle">Luksus w każdym detalu</h2>
-                <p style="text-align:center; max-width: 42rem; margin: 0 auto 4rem auto; color: var(--color-slate-600);" data-key="amenitiesSubtitle">Zapewniamy wszystko, czego potrzebujesz do idealnego wypoczynku.</p>
+                <p style="text-align:center; max-width: 42rem; margin: 0 auto 4rem auto;" data-key="amenitiesSubtitle">Zapewniamy wszystko, czego potrzebujesz do idealnego wypoczynku.</p>
                 <div class="amenities-grid">
                     <div class="amenity-item"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg></div><h3 data-key="amenity1Title">Bezpieczeństwo i Prywatność</h3><p data-key="amenity1Desc">Nowe, kameralne osiedle zamknięte. Cały teren jest całodobowo strzeżony i monitorowany, co daje Ci pełen spokój ducha.</p></div>
                     <div class="amenity-item"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H6.624a2.056 2.056 0 00-1.58.86 17.903 17.903 0 00-3.213 9.193c-.04.62.469 1.124 1.09 1.124h1.125" /></svg></div><h3 data-key="amenity2Title">Komfort bez Kompromisów</h3><p data-key="amenity2Desc">Do Twojej dyspozycji jest prywatne, dedykowane miejsce parkingowe. W Międzyzdrojach, zwłaszcza w sezonie, to prawdziwe złoto.</p></div>
@@ -232,7 +120,12 @@
                         <h3 data-key="locationTitle">Nasza Lokalizacja</h3>
                         <p data-key="locationDesc">Znajdziesz nas w samym sercu nadmorskiego kurortu. Poniższa mapa pomoże Ci bez trudu do nas dotrzeć.</p>
                         <div class="map-container">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2358.742337626912!2d14.44599231583196!3d53.92981448010488!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470099335753155d%3A0x86555a306c143924!2sPromenada%20Gwiazd%2C%20Mi%C4%99dzyzdroje!5e0!3m2!1spl!2spl!4v1672864052957!5m2!1spl!2spl" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe 
+                                src="http://googleusercontent.com/maps?q=Promenada%20Gwiazd%201,%20Mi%C4%99dzyzdroje&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
                         </div>
                     </div>
                     <div class="contact-column">
@@ -253,7 +146,10 @@
     </main>
     
     <footer>
-        <p data-key="footerText">© 2025 BalticLuxury Apartments. Wszelkie prawa zastrzeżone.</p>
+        <div class="footer-links">
+            <span data-key="footerRights">© 2025 BalticLuxury Apartments. Wszelkie prawa zastrzeżone.</span> | 
+            <a href="#privacy-policy" data-key="footerPrivacy">Polityka Prywatności</a>
+        </div>
     </footer>
 
     <div class="lightbox" id="perla-img1"><div class="lightbox-content"><a href="#apartament-perla" class="close">×</a><a href="#perla-img6" class="prev">‹</a><a href="#perla-img2" class="next">›</a><img src="https://picsum.photos/seed/perla1/1200/800" alt="Widok z salonu - powiększenie"></div></div>
@@ -265,176 +161,79 @@
     <div class="lightbox" id="bursztyn-img1"><div class="lightbox-content"><a href="#apartament-bursztyn" class="close">×</a><a href="#bursztyn-img3" class="prev">‹</a><a href="#bursztyn-img2" class="next">›</a><img src="https://picsum.photos/seed/bursztyn1/1200/800" alt="Salon w apartamencie Bursztyn - powiększenie"></div></div>
     <div class="lightbox" id="bursztyn-img2"><div class="lightbox-content"><a href="#apartament-bursztyn" class="close">×</a><a href="#bursztyn-img1" class="prev">‹</a><a href="#bursztyn-img3" class="next">›</a><img src="https://picsum.photos/seed/bursztyn2/1200/800" alt="Główna sypialnia - powiększenie"></div></div>
     <div class="lightbox" id="bursztyn-img3"><div class="lightbox-content"><a href="#apartament-bursztyn" class="close">×</a><a href="#bursztyn-img2" class="prev">‹</a><a href="#bursztyn-img1" class="next">›</a><img src="https://picsum.photos/seed/bursztyn3/1200/800" alt="Druga sypialnia - powiększenie"></div></div>
+    
+    <div class="cookie-overlay" id="cookie-overlay"></div>
+    <div class="cookie-consent-popup" id="cookie-consent-popup">
+        <div class="cookie-content">
+            <div class="cookie-main-content" id="cookie-main">
+                <h3 data-key="cookieTitle">Cenimy Twoją prywatność</h3>
+                <p data-key="cookieText">Używamy plików cookie, aby personalizować treści, udostępniać funkcje mediów społecznościowych i analizować nasz ruch. Udostępniamy również informacje o Twoim korzystaniu z naszej witryny naszym partnerom.</p>
+                <div class="cookie-main-buttons">
+                    <button class="cookie-btn-secondary" id="cookie-reject" data-key="cookieDeny">Odrzuć</button>
+                    <button class="cookie-btn-secondary" id="cookie-customize" data-key="cookieCustomize">Dostosuj</button>
+                    <button class="cookie-btn-main" id="cookie-accept" data-key="cookieAccept">Akceptuj wszystkie</button>
+                </div>
+            </div>
+            <div class="cookie-details-content" id="cookie-details">
+                <h4 data-key="cookieDetailsTitle">Dostosuj zgodę</h4>
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <strong>Niezbędne</strong>
+                        <label class="switch"><input type="checkbox" checked disabled><span class="slider round"></span></label>
+                    </div>
+                    <p data-key="cookieNecessaryDesc">Te pliki cookie są niezbędne do prawidłowego funkcjonowania strony i nie mogą zostać wyłączone.</p>
+                </div>
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <strong>Analityczne</strong>
+                        <label class="switch"><input type="checkbox" id="cookie-analytics" checked><span class="slider round"></span></label>
+                    </div>
+                    <p data-key="cookieAnalyticsDesc">Te pliki cookie pozwalają nam analizować ruch na stronie i ulepszać jej działanie.</p>
+                </div>
+                 <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <strong>Marketingowe</strong>
+                        <label class="switch"><input type="checkbox" id="cookie-marketing" checked><span class="slider round"></span></label>
+                    </div>
+                    <p data-key="cookieMarketingDesc">Te pliki cookie pomagają nam dostarczać spersonalizowane reklamy, które mogą Cię zainteresować.</p>
+                </div>
+                <div class="cookie-details-buttons">
+                     <button class="cookie-btn-main" id="cookie-save" data-key="cookieSave">Zapisz ustawienia</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-
-            const translations = {
-                pl: {
-                    navAbout: 'O Nas', navApartments: 'Apartamenty', navAmenities: 'Atuty', navContact: 'Kontakt',
-                    videoError: 'Twoja przeglądarka nie obsługuje wideo w tle.',
-                    heroTitle: 'Odkryj Swój Raj',
-                    heroSubtitle: 'Luksusowe apartamenty w Międzyzdrojach z widokiem na Bałtyk – bezpośrednio przy plaży.',
-                    heroCta: 'Zobacz Apartamenty',
-                    aboutTitle: 'Wyobraź sobie...',
-                    aboutText: '...poranek, słońce delikatnie muskające Twoją twarz, a w tle kojący szum fal. Otwierasz oczy i pierwsze, co widzisz, to niekończący się błękit Bałtyku. To nie sen, to Twoja nowa rzeczywistość w naszym ekskluzywnym apartamencie w Międzyzdrojach.',
-                    apartmentsTitle: 'Twój Prywatny Kawałek Nieba',
-                    apartmentsSubtitle: 'Każdy apartament to esencja luksusu i dobrego smaku, zaprojektowana by zapewnić Ci maksymalny komfort.',
-                    perlaSubtitle: 'Elegancja z panoramicznym widokiem',
-                    perlaTitle: 'Apartament Perła',
-                    perlaDesc: 'Apartament Perła to kwintesencja nadmorskiego luksusu. Zaprojektowany z myślą o najbardziej wymagających gościach, oferuje niezapomniany, panoramiczny widok na Bałtyk.',
-                    bursztynSubtitle: 'Komfort i styl dla całej rodziny',
-                    bursztynTitle: 'Apartament Bursztyn',
-                    bursztynDesc: 'Przestronne i stylowe wnętrze, stworzone z myślą o rodzinnych wakacjach. Dwie oddzielne sypialnie zapewniają komfort i prywatność, a duży salon jest idealnym miejscem do wspólnego spędzania czasu.',
-                    featureGuests: 'Goście',
-                    featureBedrooms: 'Sypialnie',
-                    featureArea: 'Pow.',
-                    galleryTitle: 'Galeria Zdjęć',
-                    amenitiesTitle: 'Luksus w każdym detalu',
-                    amenitiesSubtitle: 'Zapewniamy wszystko, czego potrzebujesz do idealnego wypoczynku.',
-                    amenity1Title: 'Bezpieczeństwo i Prywatność',
-                    amenity1Desc: 'Nowe, kameralne osiedle zamknięte. Cały teren jest całodobowo strzeżony i monitorowany, co daje Ci pełen spokój ducha.',
-                    amenity2Title: 'Komfort bez Kompromisów',
-                    amenity2Desc: 'Do Twojej dyspozycji jest prywatne, dedykowane miejsce parkingowe. W Międzyzdrojach, zwłaszcza w sezonie, to prawdziwe złoto.',
-                    amenity3Title: 'Krok od Morza',
-                    amenity3Desc: 'Wystarczy kilka kroków, by poczuć pod stopami ciepły piasek i zanurzyć się w orzeźwiających falach morza. Lepszej lokalizacji nie znajdziesz.',
-                    locationTitle: 'Nasza Lokalizacja',
-                    locationDesc: 'Znajdziesz nas w samym sercu nadmorskiego kurortu. Poniższa mapa pomoże Ci bez trudu do nas dotrzeć.',
-                    contactTitle: 'Skontaktuj się z Nami',
-                    contactDesc: 'Masz pytania lub chcesz zarezerwować termin? Czekamy na Twoją wiadomość.',
-                    contactRole: 'Ekspert Rynku Nieruchomości Premium',
-                    contactBtnCall: 'Zadzwoń: +48 123 456 789',
-                    contactBtnMail: 'Napisz: kontakt@balticluxury.pl',
-                    footerText: '© 2025 BalticLuxury Apartments. Wszelkie prawa zastrzeżone.'
-                },
-                en: {
-                    navAbout: 'About Us', navApartments: 'Apartments', navAmenities: 'Amenities', navContact: 'Contact',
-                    videoError: 'Your browser does not support background video.',
-                    heroTitle: 'Discover Your Paradise',
-                    heroSubtitle: 'Luxury apartments in Międzyzdroje with a view of the Baltic Sea – right on the beach.',
-                    heroCta: 'View Apartments',
-                    aboutTitle: 'Imagine...',
-                    aboutText: '...a morning with the sun gently touching your face, and the soothing sound of waves in the background. You open your eyes, and the first thing you see is the endless blue of the Baltic Sea. This is not a dream; it\'s your new reality in our exclusive apartment in Międzyzdroje.',
-                    apartmentsTitle: 'Your Private Piece of Heaven',
-                    apartmentsSubtitle: 'Each apartment is the essence of luxury and good taste, designed to provide you with maximum comfort.',
-                    perlaSubtitle: 'Elegance with a panoramic view',
-                    perlaTitle: 'Pearl Apartment',
-                    perlaDesc: 'The Pearl Apartment is the quintessence of seaside luxury. Designed for the most demanding guests, it offers an unforgettable, panoramic view of the Baltic Sea.',
-                    bursztynSubtitle: 'Comfort and style for the whole family',
-                    bursztynTitle: 'Amber Apartment',
-                    bursztynDesc: 'A spacious and stylish interior, created for family holidays. Two separate bedrooms ensure comfort and privacy, and a large living room is the perfect place to spend time together.',
-                    featureGuests: 'Guests',
-                    featureBedrooms: 'Bedrooms',
-                    featureArea: 'Area',
-                    galleryTitle: 'Photo Gallery',
-                    amenitiesTitle: 'Luxury in Every Detail',
-                    amenitiesSubtitle: 'We provide everything you need for a perfect getaway.',
-                    amenity1Title: 'Security & Privacy',
-                    amenity1Desc: 'A new, intimate, gated community. The entire area is guarded and monitored 24/7, giving you complete peace of mind.',
-                    amenity2Title: 'Comfort without Compromise',
-                    amenity2Desc: 'A private, dedicated parking space is at your disposal. In Międzyzdroje, especially in high season, this is as good as gold.',
-                    amenity3Title: 'A Step from the Sea',
-                    amenity3Desc: 'It only takes a few steps to feel the warm sand under your feet and immerse yourself in the refreshing waves. You won\'t find a better location.',
-                    locationTitle: 'Our Location',
-                    locationDesc: 'You will find us in the very heart of the seaside resort. The map below will help you reach us with ease.',
-                    contactTitle: 'Contact Us',
-                    contactDesc: 'Do you have questions or want to book a date? We are waiting for your message.',
-                    contactRole: 'Premium Real Estate Market Expert',
-                    contactBtnCall: 'Call: +48 123 456 789',
-                    contactBtnMail: 'Email: contact@balticluxury.pl',
-                    footerText: '© 2025 BalticLuxury Apartments. All rights reserved.'
-                },
-                de: {
-                    navAbout: 'Über uns', navApartments: 'Apartments', navAmenities: 'Vorteile', navContact: 'Kontakt',
-                    videoError: 'Ihr Browser unterstützt keine Hintergrundvideos.',
-                    heroTitle: 'Entdecken Sie Ihr Paradies',
-                    heroSubtitle: 'Luxuriöse Apartments in Misdroy mit Blick auf die Ostsee – direkt am Strand.',
-                    heroCta: 'Apartments ansehen',
-                    aboutTitle: 'Stellen Sie sich vor...',
-                    aboutText: '...einen Morgen, an dem die Sonne sanft Ihr Gesicht berührt und im Hintergrund das beruhigende Rauschen der Wellen zu hören ist. Sie öffnen die Augen und das Erste, was Sie sehen, ist das endlose Blau der Ostsee. Das ist kein Traum, das ist Ihre neue Realität in unserem exklusiven Apartment in Misdroy.',
-                    apartmentsTitle: 'Ihr privates Stück Himmel',
-                    apartmentsSubtitle: 'Jedes Apartment ist die Essenz von Luxus und gutem Geschmack, entworfen, um Ihnen maximalen Komfort zu bieten.',
-                    perlaSubtitle: 'Eleganz mit Panoramablick',
-                    perlaTitle: 'Perle Apartment',
-                    perlaDesc: 'Das Perle Apartment ist die Quintessenz des Küstenluxus. Es wurde für die anspruchsvollsten Gäste entworfen und bietet einen unvergesslichen Panoramablick auf die Ostsee.',
-                    bursztynSubtitle: 'Komfort und Stil für die ganze Familie',
-                    bursztynTitle: 'Bernstein Apartment',
-                    bursztynDesc: 'Ein geräumiges und stilvolles Interieur, geschaffen für einen Familienurlaub. Zwei separate Schlafzimmer sorgen für Komfort und Privatsphäre, und ein großes Wohnzimmer ist der perfekte Ort, um Zeit miteinander zu verbringen.',
-                    featureGuests: 'Gäste',
-                    featureBedrooms: 'Schlafzimmer',
-                    featureArea: 'Fläche',
-                    galleryTitle: 'Fotogalerie',
-                    amenitiesTitle: 'Luxus in jedem Detail',
-                    amenitiesSubtitle: 'Wir bieten alles, was Sie für einen perfekten Urlaub benötigen.',
-                    amenity1Title: 'Sicherheit & Privatsphäre',
-                    amenity1Desc: 'Eine neue, intime, geschlossene Wohnanlage. Das gesamte Gelände wird rund um die Uhr bewacht und überwacht, was Ihnen absolute Sorgenfreiheit gibt.',
-                    amenity2Title: 'Komfort ohne Kompromisse',
-                    amenity2Desc: 'Ein privater, dedizierter Parkplatz steht Ihnen zur Verfügung. In Misdroy, besonders in der Hochsaison, ist das so wertvoll wie Gold.',
-                    amenity3Title: 'Ein Schritt vom Meer',
-                    amenity3Desc: 'Es dauert nur wenige Schritte, um den warmen Sand unter Ihren Füßen zu spüren und in die erfrischenden Wellen einzutauchen. Eine bessere Lage werden Sie nicht finden.',
-                    locationTitle: 'Unser Standort',
-                    locationDesc: 'Sie finden uns im Herzen des Badeortes. Die untenstehende Karte hilft Ihnen, uns mühelos zu erreichen.',
-                    contactTitle: 'Kontaktieren Sie uns',
-                    contactDesc: 'Haben Sie Fragen oder möchten Sie einen Termin buchen? Wir warten auf Ihre Nachricht.',
-                    contactRole: 'Experte für Premium-Immobilien',
-                    contactBtnCall: 'Anrufen: +48 123 456 789',
-                    contactBtnMail: 'Schreiben: kontakt@balticluxury.pl',
-                    footerText: '© 2025 BalticLuxury Apartments. Alle Rechte vorbehalten.'
-                }
-            };
+    <div class="privacy-policy-page" id="privacy-policy">
+        <div class="privacy-content">
+            <a href="#" class="privacy-close-btn">×</a>
+            <h2 data-key="privacyTitle">Polityka Prywatności</h2>
+            <p data-key="privacyIntro">Niniejsza polityka prywatności opisuje, w jaki sposób zbieramy, wykorzystujemy i chronimy Twoje dane osobowe. Dbamy o Twoją prywatność i dokładamy wszelkich starań, aby Twoje dane były u nas bezpieczne.</p>
             
-            const hamburgerBtn = document.getElementById('hamburger-btn');
-            const navMenu = document.getElementById('nav-links');
-            const navMenuLinks = navMenu.querySelectorAll('a');
-            const languageSwitcher = document.querySelector('.language-switcher');
-            const flags = languageSwitcher.querySelectorAll('img');
-            const translatableElements = document.querySelectorAll('[data-key]');
+            <h3 data-key="privacyAdminTitle">Administrator Danych</h3>
+            <p data-key="privacyAdminText">Administratorem Twoich danych osobowych jest BalticLuxury Apartments z siedzibą w Międzyzdrojach. W sprawach związanych z przetwarzaniem danych możesz się z nami skontaktować pod adresem email: kontakt@balticluxury.pl.</p>
 
-            const toggleMenu = () => {
-                hamburgerBtn.classList.toggle('is-active');
-                navMenu.classList.toggle('is-open');
-            };
+            <h3 data-key="privacyDataTitle">Jakie dane zbieramy?</h3>
+            <p data-key="privacyDataText">Zbieramy dane, które nam podajesz w sposób dobrowolny podczas kontaktu telefonicznego lub mailowego, takie jak imię i nazwisko, numer telefonu, adres e-mail, w celu obsługi Twojego zapytania i rezerwacji.</p>
 
-            hamburgerBtn.addEventListener('click', toggleMenu);
+            <h3 data-key="privacyCookiesTitle">Pliki Cookie</h3>
+            <p data-key="privacyCookiesText">Nasza strona internetowa używa plików cookie, aby zapamiętać Twoją zgodę na ich używanie. Są to małe pliki tekstowe przechowywane na Twoim urządzeniu. Używamy tylko niezbędnych plików cookie do podstawowego funkcjonowania serwisu.</p>
 
-            navMenuLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (navMenu.classList.contains('is-open')) {
-                        toggleMenu();
-                    }
-                });
-            });
-
-            const setLanguage = (lang) => {
-                const langTranslations = translations[lang];
-                if (!langTranslations) return;
-
-                translatableElements.forEach(element => {
-                    const key = element.dataset.key;
-                    if (langTranslations[key]) {
-                        element.textContent = langTranslations[key];
-                    }
-                });
-
-                flags.forEach(flag => {
-                    flag.classList.remove('lang-active');
-                    if (flag.dataset.lang === lang) {
-                        flag.classList.add('lang-active');
-                    }
-                });
-                
-                document.documentElement.lang = lang;
-            };
-
-            languageSwitcher.addEventListener('click', (e) => {
-                if (e.target.tagName === 'IMG' && e.target.dataset.lang) {
-                    const selectedLang = e.target.dataset.lang;
-                    setLanguage(selectedLang);
-                }
-            });
-
-            setLanguage('pl');
-        });
-    </script>
+            <h3 data-key="privacyRightsTitle">Twoje Prawa</h3>
+            <p data-key="privacyRightsText">Zgodnie z RODO, masz prawo do:</p>
+            <ul>
+                <li data-key="privacyRight1">Dostępu do swoich danych osobowych.</li>
+                <li data-key="privacyRight2">Sprostowania swoich danych.</li>
+                <li data-key="privacyRight3">Usunięcia danych („prawo do bycia zapomnianym”).</li>
+                <li data-key="privacyRight4">Ograniczenia przetwarzania danych.</li>
+                <li data-key="privacyRight5">Wniesienia sprzeciwu wobec przetwarzania.</li>
+            </ul>
+            
+            <h3 data-key="privacyChangesTitle">Zmiany w polityce</h3>
+            <p data-key="privacyChangesText">Zastrzegamy sobie prawo do wprowadzania zmian w polityce prywatności. O wszelkich zmianach będziemy informować poprzez publikację nowej wersji polityki na tej stronie.</p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
 </body>
 </html>

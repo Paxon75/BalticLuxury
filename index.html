@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* === Zmienne CSS (Custom Properties) === */
         :root {
             --color-amber-500: #f59e0b;
             --color-amber-600: #d97706;
@@ -23,193 +22,34 @@
             --font-secondary: 'Playfair Display', serif;
             --nav-height: 68px;
         }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-primary); background-color: var(--color-slate-50); color: var(--color-slate-800); line-height: 1.6; }
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-secondary); }
+        .container { max-width: 1140px; margin-left: auto; margin-right: auto; padding-left: 1.5rem; padding-right: 1.5rem; }
+        section { padding-top: 5rem; padding-bottom: 5rem; }
+        @media (min-width: 1024px) { section { padding-top: 8rem; padding-bottom: 8rem; } }
 
-        /* === Reset i Style Globalne === */
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        .main-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: var(--nav-height); }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--color-slate-800); text-decoration: none; z-index: 1001; }
+        .logo-accent { color: var(--color-amber-500); }
+        .header-controls { display: flex; align-items: center; gap: 1.5rem; }
+        .language-switcher { display: flex; gap: 0.75rem; }
+        .language-switcher img { width: 28px; height: auto; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); cursor: pointer; opacity: 0.5; transition: opacity 0.3s, transform 0.3s; }
+        .language-switcher img:hover { opacity: 1; transform: scale(1.1); }
+        .language-switcher img.lang-active { opacity: 1; transform: scale(1.1); box-shadow: 0 0 0 2px var(--color-amber-500); }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        .nav-toggle-checkbox { display: none; }
+        .hamburger-btn { display: flex; flex-direction: column; justify-content: space-around; width: 30px; height: 24px; cursor: pointer; z-index: 1001; }
+        .hamburger-btn span { display: block; width: 100%; height: 3px; background-color: var(--color-slate-800); border-radius: 3px; transition: all 0.3s ease-in-out; }
+        .nav-links { position: fixed; top: 0; right: -100%; width: 80%; max-width: 320px; height: 100vh; background-color: var(--color-white); box-shadow: -2px 0 10px rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; transition: right 0.4s ease-in-out; }
+        .nav-links a { color: var(--color-slate-800); text-decoration: none; font-size: 1.5rem; font-weight: 600; }
+        .nav-toggle-checkbox:checked ~ .nav-links { right: 0; }
+        .nav-toggle-checkbox:checked + .nav-container .header-controls .hamburger-btn span:nth-child(1) { transform: translateY(10.5px) rotate(45deg); }
+        .nav-toggle-checkbox:checked + .nav-container .header-controls .hamburger-btn span:nth-child(2) { opacity: 0; }
+        .nav-toggle-checkbox:checked + .nav-container .header-controls .hamburger-btn span:nth-child(3) { transform: translateY(-10.5px) rotate(-45deg); }
 
-        body {
-            font-family: var(--font-primary);
-            background-color: var(--color-slate-50);
-            color: var(--color-slate-800);
-            line-height: 1.6;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-secondary);
-        }
-
-        .container {
-            max-width: 1140px;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-        }
-        
-        section {
-            padding-top: 5rem;
-            padding-bottom: 5rem;
-        }
-        @media (min-width: 1024px) {
-            section {
-                padding-top: 8rem;
-                padding-bottom: 8rem;
-            }
-        }
-
-        /* === Header / Nawigacja z Menu Hamburger === */
-        .main-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: var(--nav-height);
-        }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--color-slate-800);
-            text-decoration: none;
-            z-index: 1001;
-        }
-        .logo-accent {
-            color: var(--color-amber-500);
-        }
-        
-        .header-controls {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        /* === Przełącznik Języków === */
-        .language-switcher {
-            display: flex;
-            gap: 0.75rem;
-        }
-        .language-switcher img {
-            width: 28px;
-            height: auto;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-            cursor: pointer;
-            opacity: 0.5;
-            transition: opacity 0.3s, transform 0.3s;
-        }
-        .language-switcher img:hover {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-        .language-switcher img.lang-active {
-            opacity: 1;
-            transform: scale(1.1);
-            box-shadow: 0 0 0 2px var(--color-amber-500);
-        }
-
-        /* === Menu Hamburger === */
-        .nav-toggle-checkbox {
-            display: none;
-        }
-        
-        .hamburger-btn {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            width: 30px;
-            height: 24px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-        .hamburger-btn span {
-            display: block;
-            width: 100%;
-            height: 3px;
-            background-color: var(--color-slate-800);
-            border-radius: 3px;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .nav-links {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            width: 70%;
-            max-width: 300px;
-            height: 100vh;
-            background-color: var(--color-white);
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-            transition: left 0.3s ease-in-out;
-        }
-
-        .nav-links a {
-            color: var(--color-slate-800);
-            text-decoration: none;
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-        
-        .nav-toggle-checkbox:checked ~ .nav-container .nav-links {
-            left: 0;
-        }
-
-        .nav-toggle-checkbox:checked + .header-controls .hamburger-btn span:nth-child(1) {
-            transform: translateY(10.5px) rotate(45deg);
-        }
-        .nav-toggle-checkbox:checked + .header-controls .hamburger-btn span:nth-child(2) {
-            opacity: 0;
-        }
-        .nav-toggle-checkbox:checked + .header-controls .hamburger-btn span:nth-child(3) {
-            transform: translateY(-10.5px) rotate(-45deg);
-        }
-        
-        @media (min-width: 768px) {
-            .hamburger-btn {
-                display: none;
-            }
-            .nav-links {
-                position: static;
-                flex-direction: row;
-                height: auto;
-                width: auto;
-                max-width: none;
-                background-color: transparent;
-                box-shadow: none;
-                left: 0;
-            }
-            .nav-links a {
-                font-size: 1rem;
-                font-weight: 400;
-                color: var(--color-slate-600);
-            }
-             .nav-links a:hover {
-                color: var(--color-amber-600);
-            }
-        }
-        
-        /* Pozostałe style bez większych zmian */
         #hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; color: var(--color-white); text-align: center; padding: 0 1rem; overflow: hidden; }
         .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.6); z-index: 2; }
@@ -234,10 +74,10 @@
         .features-grid { margin-top: 1.5rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
         .feature-item { display: flex; align-items: center; gap: 0.75rem; }
         .feature-item svg { width: 2rem; height: 2rem; color: var(--color-amber-600); flex-shrink: 0; }
-        .feature-item .label { font-size: 0.875rem; color: var(--color-slate-500); }
+        .feature-item .label { font-size: 0.875rem; color: var(--color-slate-600); }
         .feature-item .value { font-weight: 600; color: var(--color-slate-800); }
         @media (min-width: 768px) { .apartment-card { display: flex; } .apartment-card .image-wrapper { flex-shrink: 0; width: 50%; } .apartment-card .main-image { height: 100%; } .apartment-content { padding: 3rem; } .features-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-        .gallery-wrapper { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--color-slate-200); }
+        .gallery-wrapper { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--color-slate-100); }
         .gallery-wrapper h4 { font-size: 1.25rem; margin-bottom: 1rem; font-family: var(--font-primary); font-weight: 600; }
         .thumbnail-gallery { display: flex; flex-wrap: wrap; gap: 0.75rem;  }
         .thumbnail-gallery a { display: block; width: calc(33.333% - 0.5rem); aspect-ratio: 1 / 1; overflow: hidden; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
@@ -281,20 +121,20 @@
         .contact-buttons .btn-email { background-color: var(--color-slate-600); color: var(--color-white); }
         .contact-buttons .btn-email:hover { background-color: #64748b; }
         footer { background-color: var(--color-slate-900); color: var(--color-slate-600); padding: 2rem 1.5rem; text-align: center; }
-
     </style>
 </head>
 <body>
+
     <header class="main-header">
-        <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox">
         <div class="container nav-container">
             <a href="#hero" class="logo">Baltic<span class="logo-accent">Luxury</span></a>
             <div class="header-controls">
                 <div class="language-switcher">
-                    <img src="https://flagcdn.com/w40/pl.png" alt="Język Polski" data-lang="pl" class="lang-active">
+                    <img src="https://flagcdn.com/w40/pl.png" alt="Język Polski" data-lang="pl">
                     <img src="https://flagcdn.com/w40/gb.png" alt="English Language" data-lang="en">
                     <img src="https://flagcdn.com/w40/de.png" alt="Deutsche Sprache" data-lang="de">
                 </div>
+                <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox">
                 <label for="nav-toggle" class="hamburger-btn">
                     <span></span>
                     <span></span>
@@ -304,14 +144,14 @@
         </div>
     </header>
 
-    <main>
-        <nav class="nav-links">
-            <a href="#o-nas" data-key="navAbout">O Nas</a>
-            <a href="#apartamenty" data-key="navApartments">Apartamenty</a>
-            <a href="#atuty" data-key="navAmenities">Atuty</a>
-            <a href="#kontakt" data-key="navContact">Kontakt</a>
-        </nav>
+    <nav class="nav-links">
+        <a href="#o-nas" data-key="navAbout">O Nas</a>
+        <a href="#apartamenty" data-key="navApartments">Apartamenty</a>
+        <a href="#atuty" data-key="navAmenities">Atuty</a>
+        <a href="#kontakt" data-key="navContact">Kontakt</a>
+    </nav>
 
+    <main>
         <section id="hero">
             <video class="hero-video" autoplay loop muted playsinline>
                 <source src="https://paxon75.github.io/BalticLuxury/apartament.mp4" type="video/mp4">
@@ -393,7 +233,7 @@
                         <h3 data-key="locationTitle">Nasza Lokalizacja</h3>
                         <p data-key="locationDesc">Znajdziesz nas w samym sercu nadmorskiego kurortu. Poniższa mapa pomoże Ci bez trudu do nas dotrzeć.</p>
                         <div class="map-container">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2368.093116598504!2d14.44571261584742!3d53.9317540801053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47009946497f1e7d%3A0x29841857933a325!2sPromenada%20Gwiazd%2C%2072-500%20Mi%C4%99dzyzdroje!5e0!3m2!1spl!2spl!4v1660000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe src="http://googleusercontent.com/maps.google.com/7" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                     <div class="contact-column">
@@ -414,40 +254,33 @@
     </main>
     
     <footer>
-        <p data-key="footerText">&copy; 2025 BalticLuxury Apartments. Wszelkie prawa zastrzeżone.</p>
+        <p data-key="footerText">© 2025 BalticLuxury Apartments. Wszelkie prawa zastrzeżone.</p>
     </footer>
 
-    <div class="lightbox" id="perla-img1"><div class="lightbox-content"><a href="#apartament-perla" class="close">&times;</a><a href="#perla-img6" class="prev">‹</a><a href="#perla-img2" class="next">›</a><img src="https://picsum.photos/seed/perla1/1200/800" alt="Widok z salonu - powiększenie"></div></div>
-    <div class="lightbox" id="perla-img2"><div class="lightbox-content"><a href="#apartament-perla" class="close">&times;</a><a href="#perla-img1" class="prev">‹</a><a href="#perla-img3" class="next">›</a><img src="https://picsum.photos/seed/perla2/1200/800" alt="Sypialnia z widokiem - powiększenie"></div></div>
-    <div class="lightbox" id="perla-img3"><div class="lightbox-content"><a href="#apartament-perla" class="close">&times;</a><a href="#perla-img2" class="prev">‹</a><a href="#perla-img4" class="next">›</a><img src="https://picsum.photos/seed/perla3/1200/800" alt="Taras - powiększenie"></div></div>
-    <div class="lightbox" id="perla-img4"><div class="lightbox-content"><a href="#apartament-perla" class="close">&times;</a><a href="#perla-img3" class="prev">‹</a><a href="#perla-img5" class="next">›</a><img src="https://picsum.photos/seed/perla4/1200/800" alt="Łazienka - powiększenie"></div></div>
-    <div class="lightbox" id="perla-img5"><div class="lightbox-content"><a href="#apartament-perla" class="close">&times;</a><a href="#perla-img4" class="prev">‹</a><a href="#perla-img6" class="next">›</a><img src="https://picsum.photos/seed/perla5/1200/800" alt="Kuchnia - powiększenie"></div></div>
-    <div class="lightbox" id="perla-img6"><div class="lightbox-content"><a href="#apartament-perla" class="close">&times;</a><a href="#perla-img5" class="prev">‹</a><a href="#perla-img1" class="next">›</a><img src="https://picsum.photos/seed/perla6/1200/800" alt="Detal w salonie - powiększenie"></div></div>
-    <div class="lightbox" id="bursztyn-img1"><div class="lightbox-content"><a href="#apartament-bursztyn" class="close">&times;</a><a href="#bursztyn-img3" class="prev">‹</a><a href="#bursztyn-img2" class="next">›</a><img src="https://picsum.photos/seed/bursztyn1/1200/800" alt="Salon w apartamencie Bursztyn - powiększenie"></div></div>
-    <div class="lightbox" id="bursztyn-img2"><div class="lightbox-content"><a href="#apartament-bursztyn" class="close">&times;</a><a href="#bursztyn-img1" class="prev">‹</a><a href="#bursztyn-img3" class="next">›</a><img src="https://picsum.photos/seed/bursztyn2/1200/800" alt="Główna sypialnia - powiększenie"></div></div>
-    <div class="lightbox" id="bursztyn-img3"><div class="lightbox-content"><a href="#apartament-bursztyn" class="close">&times;</a><a href="#bursztyn-img2" class="prev">‹</a><a href="#bursztyn-img1" class="next">›</a><img src="https://picsum.photos/seed/bursztyn3/1200/800" alt="Druga sypialnia - powiększenie"></div></div>
+    <div class="lightbox" id="perla-img1"><div class="lightbox-content"><a href="#apartament-perla" class="close">×</a><a href="#perla-img6" class="prev">‹</a><a href="#perla-img2" class="next">›</a><img src="https://picsum.photos/seed/perla1/1200/800" alt="Widok z salonu - powiększenie"></div></div>
+    <div class="lightbox" id="perla-img2"><div class="lightbox-content"><a href="#apartament-perla" class="close">×</a><a href="#perla-img1" class="prev">‹</a><a href="#perla-img3" class="next">›</a><img src="https://picsum.photos/seed/perla2/1200/800" alt="Sypialnia z widokiem - powiększenie"></div></div>
+    <div class="lightbox" id="perla-img3"><div class="lightbox-content"><a href="#apartament-perla" class="close">×</a><a href="#perla-img2" class="prev">‹</a><a href="#perla-img4" class="next">›</a><img src="https://picsum.photos/seed/perla3/1200/800" alt="Taras - powiększenie"></div></div>
+    <div class="lightbox" id="perla-img4"><div class="lightbox-content"><a href="#apartament-perla" class="close">×</a><a href="#perla-img3" class="prev">‹</a><a href="#perla-img5" class="next">›</a><img src="https://picsum.photos/seed/perla4/1200/800" alt="Łazienka - powiększenie"></div></div>
+    <div class="lightbox" id="perla-img5"><div class="lightbox-content"><a href="#apartament-perla" class="close">×</a><a href="#perla-img4" class="prev">‹</a><a href="#perla-img6" class="next">›</a><img src="https://picsum.photos/seed/perla5/1200/800" alt="Kuchnia - powiększenie"></div></div>
+    <div class="lightbox" id="perla-img6"><div class="lightbox-content"><a href="#apartament-perla" class="close">×</a><a href="#perla-img5" class="prev">‹</a><a href="#perla-img1" class="next">›</a><img src="https://picsum.photos/seed/perla6/1200/800" alt="Detal w salonie - powiększenie"></div></div>
+    <div class="lightbox" id="bursztyn-img1"><div class="lightbox-content"><a href="#apartament-bursztyn" class="close">×</a><a href="#bursztyn-img3" class="prev">‹</a><a href="#bursztyn-img2" class="next">›</a><img src="https://picsum.photos/seed/bursztyn1/1200/800" alt="Salon w apartamencie Bursztyn - powiększenie"></div></div>
+    <div class="lightbox" id="bursztyn-img2"><div class="lightbox-content"><a href="#apartament-bursztyn" class="close">×</a><a href="#bursztyn-img1" class="prev">‹</a><a href="#bursztyn-img3" class="next">›</a><img src="https://picsum.photos/seed/bursztyn2/1200/800" alt="Główna sypialnia - powiększenie"></div></div>
+    <div class="lightbox" id="bursztyn-img3"><div class="lightbox-content"><a href="#apartament-bursztyn" class="close">×</a><a href="#bursztyn-img2" class="prev">‹</a><a href="#bursztyn-img1" class="next">›</a><img src="https://picsum.photos/seed/bursztyn3/1200/800" alt="Druga sypialnia - powiększenie"></div></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-
-            // === SŁOWNIK TŁUMACZEŃ ===
-            // Tutaj możesz łatwo edytować lub dodawać nowe teksty
             const translations = {
                 pl: {
-                    // Nawigacja
                     navAbout: 'O Nas',
                     navApartments: 'Apartamenty',
                     navAmenities: 'Atuty',
                     navContact: 'Kontakt',
-                    // Hero
                     videoError: 'Twoja przeglądarka nie obsługuje wideo w tle.',
                     heroTitle: 'Odkryj Swój Raj',
                     heroSubtitle: 'Luksusowe apartamenty w Międzyzdrojach z widokiem na Bałtyk – bezpośrednio przy plaży.',
                     heroCta: 'Zobacz Apartamenty',
-                    // O nas
                     aboutTitle: 'Wyobraź sobie...',
                     aboutText: '...poranek, słońce delikatnie muskające Twoją twarz, a w tle kojący szum fal. Otwierasz oczy i pierwsze, co widzisz, to niekończący się błękit Bałtyku. To nie sen, to Twoja nowa rzeczywistość w naszym ekskluzywnym apartamencie w Międzyzdrojach.',
-                    // Apartamenty
                     apartmentsTitle: 'Twój Prywatny Kawałek Nieba',
                     apartmentsSubtitle: 'Każdy apartament to esencja luksusu i dobrego smaku, zaprojektowana by zapewnić Ci maksymalny komfort.',
                     perlaSubtitle: 'Elegancja z panoramicznym widokiem',
@@ -460,7 +293,6 @@
                     featureBedrooms: 'Sypialnie',
                     featureArea: 'Pow.',
                     galleryTitle: 'Galeria Zdjęć',
-                    // Atuty
                     amenitiesTitle: 'Luksus w każdym detalu',
                     amenitiesSubtitle: 'Zapewniamy wszystko, czego potrzebujesz do idealnego wypoczynku.',
                     amenity1Title: 'Bezpieczeństwo i Prywatność',
@@ -469,7 +301,6 @@
                     amenity2Desc: 'Do Twojej dyspozycji jest prywatne, dedykowane miejsce parkingowe. W Międzyzdrojach, zwłaszcza w sezonie, to prawdziwe złoto.',
                     amenity3Title: 'Krok od Morza',
                     amenity3Desc: 'Wystarczy kilka kroków, by poczuć pod stopami ciepły piasek i zanurzyć się w orzeźwiających falach morza. Lepszej lokalizacji nie znajdziesz.',
-                    // Kontakt
                     locationTitle: 'Nasza Lokalizacja',
                     locationDesc: 'Znajdziesz nas w samym sercu nadmorskiego kurortu. Poniższa mapa pomoże Ci bez trudu do nas dotrzeć.',
                     contactTitle: 'Skontaktuj się z Nami',
@@ -477,8 +308,7 @@
                     contactRole: 'Ekspert Rynku Nieruchomości Premium',
                     contactBtnCall: 'Zadzwoń: +48 123 456 789',
                     contactBtnMail: 'Napisz: kontakt@balticluxury.pl',
-                    // Stopka
-                    footerText: '&copy; 2025 BalticLuxury Apartments. Wszelkie prawa zastrzeżone.'
+                    footerText: '© 2025 BalticLuxury Apartments. Wszelkie prawa zastrzeżone.'
                 },
                 en: {
                     navAbout: 'About Us',
@@ -518,7 +348,7 @@
                     contactRole: 'Premium Real Estate Market Expert',
                     contactBtnCall: 'Call: +48 123 456 789',
                     contactBtnMail: 'Email: contact@balticluxury.pl',
-                    footerText: '&copy; 2025 BalticLuxury Apartments. All rights reserved.'
+                    footerText: '© 2025 BalticLuxury Apartments. All rights reserved.'
                 },
                 de: {
                     navAbout: 'Über uns',
@@ -558,7 +388,7 @@
                     contactRole: 'Experte für Premium-Immobilien',
                     contactBtnCall: 'Anrufen: +48 123 456 789',
                     contactBtnMail: 'Schreiben: kontakt@balticluxury.pl',
-                    footerText: '&copy; 2025 BalticLuxury Apartments. Alle Rechte vorbehalten.'
+                    footerText: '© 2025 BalticLuxury Apartments. Alle Rechte vorbehalten.'
                 }
             };
 
@@ -567,22 +397,19 @@
             const translatableElements = document.querySelectorAll('[data-key]');
 
             const setLanguage = (lang) => {
+                // Zamykanie menu hamburgera po zmianie języka
+                document.getElementById('nav-toggle').checked = false;
+
                 const langTranslations = translations[lang];
                 if (!langTranslations) return;
 
                 translatableElements.forEach(element => {
                     const key = element.dataset.key;
                     if (langTranslations[key]) {
-                        // Użyj innerHTML dla stopki, aby poprawnie wstawić znak ©
-                        if (key === 'footerText') {
-                            element.innerHTML = langTranslations[key];
-                        } else {
-                            element.textContent = langTranslations[key];
-                        }
+                        element.textContent = langTranslations[key];
                     }
                 });
 
-                // Aktualizacja aktywnej flagi
                 flags.forEach(flag => {
                     flag.classList.remove('lang-active');
                     if (flag.dataset.lang === lang) {
@@ -590,7 +417,6 @@
                     }
                 });
                 
-                // Zmiana atrybutu lang w tagu <html> dla lepszej dostępności
                 document.documentElement.lang = lang;
             };
 

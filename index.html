@@ -232,7 +232,7 @@
                         <h3 data-key="locationTitle">Nasza Lokalizacja</h3>
                         <p data-key="locationDesc">Znajdziesz nas w samym sercu nadmorskiego kurortu. Poniższa mapa pomoże Ci bez trudu do nas dotrzeć.</p>
                         <div class="map-container">
-                            <iframe src="http://googleusercontent.com/maps?q=Promenada%20Gwiazd%201,%20Mi%C4%99dzyzdroje&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2358.742337626912!2d14.44599231583196!3d53.92981448010488!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470099335753155d%3A0x86555a306c143924!2sPromenada%20Gwiazd%2C%20Mi%C4%99dzyzdroje!5e0!3m2!1spl!2spl!4v1672864052957!5m2!1spl!2spl" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                     <div class="contact-column">
@@ -269,13 +269,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            // === KOMPLETNY SŁOWNIK TŁUMACZEŃ ===
             const translations = {
                 pl: {
-                    navAbout: 'O Nas',
-                    navApartments: 'Apartamenty',
-                    navAmenities: 'Atuty',
-                    navContact: 'Kontakt',
+                    navAbout: 'O Nas', navApartments: 'Apartamenty', navAmenities: 'Atuty', navContact: 'Kontakt',
                     videoError: 'Twoja przeglądarka nie obsługuje wideo w tle.',
                     heroTitle: 'Odkryj Swój Raj',
                     heroSubtitle: 'Luksusowe apartamenty w Międzyzdrojach z widokiem na Bałtyk – bezpośrednio przy plaży.',
@@ -312,10 +308,7 @@
                     footerText: '© 2025 BalticLuxury Apartments. Wszelkie prawa zastrzeżone.'
                 },
                 en: {
-                    navAbout: 'About Us',
-                    navApartments: 'Apartments',
-                    navAmenities: 'Amenities',
-                    navContact: 'Contact',
+                    navAbout: 'About Us', navApartments: 'Apartments', navAmenities: 'Amenities', navContact: 'Contact',
                     videoError: 'Your browser does not support background video.',
                     heroTitle: 'Discover Your Paradise',
                     heroSubtitle: 'Luxury apartments in Międzyzdroje with a view of the Baltic Sea – right on the beach.',
@@ -352,10 +345,7 @@
                     footerText: '© 2025 BalticLuxury Apartments. All rights reserved.'
                 },
                 de: {
-                    navAbout: 'Über uns',
-                    navApartments: 'Apartments',
-                    navAmenities: 'Vorteile',
-                    navContact: 'Kontakt',
+                    navAbout: 'Über uns', navApartments: 'Apartments', navAmenities: 'Vorteile', navContact: 'Kontakt',
                     videoError: 'Ihr Browser unterstützt keine Hintergrundvideos.',
                     heroTitle: 'Entdecken Sie Ihr Paradies',
                     heroSubtitle: 'Luxuriöse Apartments in Misdroy mit Blick auf die Ostsee – direkt am Strand.',
@@ -393,10 +383,12 @@
                 }
             };
             
-            // Logika dla Menu Hamburger
             const hamburgerBtn = document.getElementById('hamburger-btn');
             const navMenu = document.getElementById('nav-links');
             const navMenuLinks = navMenu.querySelectorAll('a');
+            const languageSwitcher = document.querySelector('.language-switcher');
+            const flags = languageSwitcher.querySelectorAll('img');
+            const translatableElements = document.querySelectorAll('[data-key]');
 
             const toggleMenu = () => {
                 hamburgerBtn.classList.toggle('is-active');
@@ -412,11 +404,6 @@
                     }
                 });
             });
-
-            // Logika dla Przełączania Języków
-            const languageSwitcher = document.querySelector('.language-switcher');
-            const flags = languageSwitcher.querySelectorAll('img');
-            const translatableElements = document.querySelectorAll('[data-key]');
 
             const setLanguage = (lang) => {
                 const langTranslations = translations[lang];

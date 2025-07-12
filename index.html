@@ -306,19 +306,28 @@
             background-color: var(--color-slate-900);
             color: var(--color-white);
         }
-        #kontakt .section-title {
+        #kontakt .section-title, #kontakt .location-heading {
             color: var(--color-white);
+            text-align: left; /* Wyrównanie do lewej */
         }
-        #kontakt .section-subtitle {
+        #kontakt .section-subtitle, #kontakt .location-subheading {
             color: var(--color-slate-200);
-            margin-bottom: 2.5rem;
+            text-align: left; /* Wyrównanie do lewej */
+            max-width: none;
+            margin-bottom: 1rem;
+        }
+
+        .location-heading {
+            font-size: 2.25rem;
+            margin-top: 2rem;
         }
 
         .contact-grid {
+            margin-top: 2rem; /* Odstęp między tekstem a siatką */
             display: grid;
             grid-template-columns: 1fr;
             gap: 3rem;
-            align-items: stretch; /* ZMIANA: Wyrównuje wysokość elementów w siatce */
+            align-items: start; /* ZMIANA: Wyrównuje do góry */
         }
         @media (min-width: 992px) {
             .contact-grid {
@@ -326,35 +335,16 @@
             }
         }
         
-        .location-info, .contact-details {
-            height: 100%; /* Zapewnia, że kontenery wypełniają całą wysokość siatki */
-        }
-
-        .location-info h3 {
-            font-size: 1.875rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        .location-info p {
-            font-size: 1.125rem;
-            color: var(--color-slate-200);
-            margin-bottom: 1.5rem;
-        }
-        .map-container {
-            height: 100%;
-            min-height: 400px; /* Minimalna wysokość mapy na mobilach */
-        }
         .map-container iframe {
             width: 100%;
-            height: 100%; /* Mapa wypełnia cały swój kontener */
+            height: 450px; /* Stała wysokość mapy */
             border: 0;
             border-radius: 0.5rem;
-            /* ZMIANA: Atrakcyjny, monochromatyczny styl mapy */
             filter: grayscale(1);
             transition: filter 0.3s ease;
         }
         .map-container iframe:hover {
-            filter: grayscale(0); /* Pełny kolor po najechaniu */
+            filter: grayscale(0);
         }
 
         .contact-card {
@@ -362,11 +352,6 @@
             padding: 2rem;
             border-radius: 0.5rem;
             text-align: center;
-            height: 100%; /* Wypełnia całą dostępną wysokość */
-            /* ZMIANA: Wycentrowanie zawartości w pionie */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
         .contact-card h3 {
             font-size: 1.5rem;
@@ -436,14 +421,14 @@
 
         <section id="o-nas">
              <div class="container">
-                <h2 class="section-title">Wyobraź sobie...</h2>
-                <p>...poranek, słońce delikatnie muskające Twoją twarz, a w tle kojący szum fal. Otwierasz oczy i pierwsze, co widzisz, to niekończący się błękit Bałtyku. To nie sen, to Twoja nowa rzeczywistość w naszym ekskluzywnym apartamencie w Międzyzdrojach.</p>
+                <h2 class="section-title" style="text-align:center;">Wyobraź sobie...</h2>
+                <p style="text-align:center; max-width: 48rem;">...poranek, słońce delikatnie muskające Twoją twarz, a w tle kojący szum fal. Otwierasz oczy i pierwsze, co widzisz, to niekończący się błękit Bałtyku. To nie sen, to Twoja nowa rzeczywistość w naszym ekskluzywnym apartamencie w Międzyzdrojach.</p>
             </div>
         </section>
         <section id="apartamenty">
             <div class="container">
-                <h2 class="section-title">Twój Prywatny Kawałek Nieba</h2>
-                <p class="section-subtitle">Każdy apartament to esencja luksusu i dobrego smaku, zaprojektowana by zapewnić Ci maksymalny komfort.</p>
+                <h2 class="section-title" style="text-align:center;">Twój Prywatny Kawałek Nieba</h2>
+                <p class="section-subtitle" style="text-align:center;">Każdy apartament to esencja luksusu i dobrego smaku, zaprojektowana by zapewnić Ci maksymalny komfort.</p>
                 <article class="apartment-card" id="apartament-perla">
                     <div class="image-wrapper"><img class="main-image" src="https://picsum.photos/seed/perla1/800/600" alt="Apartament Perła"></div>
                     <div class="apartment-content">
@@ -482,8 +467,8 @@
         </section>
         <section id="atuty">
             <div class="container">
-                <h2 class="section-title">Luksus w każdym detalu</h2>
-                <p class="section-subtitle">Zapewniamy wszystko, czego potrzebujesz do idealnego wypoczynku.</p>
+                <h2 class="section-title" style="text-align:center;">Luksus w każdym detalu</h2>
+                <p class="section-subtitle" style="text-align:center;">Zapewniamy wszystko, czego potrzebujesz do idealnego wypoczynku.</p>
                 <div class="amenities-grid">
                     <div class="amenity-item"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg></div><h3>Bezpieczeństwo i Prywatność</h3><p>Nowe, kameralne osiedle zamknięte. Cały teren jest całodobowo strzeżony i monitorowany, co daje Ci pełen spokój ducha.</p></div>
                     <div class="amenity-item"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H6.624a2.056 2.056 0 00-1.58.86 17.903 17.903 0 00-3.213 9.193c-.04.62.469 1.124 1.09 1.124h1.125" /></svg></div><h3>Komfort bez Kompromisów</h3><p>Do Twojej dyspozycji jest prywatne, dedykowane miejsce parkingowe. W Międzyzdrojach, zwłaszcza w sezonie, to prawdziwe złoto.</p></div>
@@ -496,18 +481,18 @@
             <div class="container">
                 <h2 class="section-title">Skontaktuj się z Nami</h2>
                 <p class="section-subtitle">Masz pytania lub chcesz zarezerwować termin? Czekamy na Twoją wiadomość. Jesteśmy tutaj, aby pomóc!</p>
+                
+                <h3 class="location-heading">Nasza Lokalizacja</h3>
+                <p class="location-subheading">Znajdziesz nas w samym sercu nadmorskiego kurortu. Poniższa mapa pomoże Ci bez trudu do nas dotrzeć.</p>
+                
                 <div class="contact-grid">
-                    <div class="location-info">
-                        <h3>Nasza Lokalizacja</h3>
-                        <p>Znajdziesz nas w samym sercu nadmorskiego kurortu. Poniższa mapa pomoże Ci bez trudu do nas dotrzeć.</p>
-                        <div class="map-container">
-                            <iframe 
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2358.583328221087!2d14.44472331585428!3d53.93049298010588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47aa826153747f51%3A0x868f8b63065b2095!2sPromenada%20Gwiazd%2C%20Mi%C4%99dzyzdroje!5e0!3m2!1spl!2spl!4v1672863000000!5m2!1spl!2spl" 
-                                allowfullscreen="" 
-                                loading="lazy" 
-                                referrerpolicy="no-referrer-when-downgrade">
-                            </iframe>
-                        </div>
+                    <div class="map-container">
+                        <iframe 
+                            src="http://googleusercontent.com/maps.google.com/3"
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
                     </div>
                     <div class="contact-details">
                          <div class="contact-card">

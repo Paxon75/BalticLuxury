@@ -308,11 +308,11 @@
         }
         #kontakt .section-title, #kontakt .location-heading {
             color: var(--color-white);
-            text-align: left; /* Wyrównanie do lewej */
+            text-align: left;
         }
         #kontakt .section-subtitle, #kontakt .location-subheading {
             color: var(--color-slate-200);
-            text-align: left; /* Wyrównanie do lewej */
+            text-align: left;
             max-width: none;
             margin-bottom: 1rem;
         }
@@ -323,11 +323,11 @@
         }
 
         .contact-grid {
-            margin-top: 2rem; /* Odstęp między tekstem a siatką */
+            margin-top: 2rem;
             display: grid;
             grid-template-columns: 1fr;
             gap: 3rem;
-            align-items: start; /* ZMIANA: Wyrównuje do góry */
+            align-items: start;
         }
         @media (min-width: 992px) {
             .contact-grid {
@@ -337,7 +337,7 @@
         
         .map-container iframe {
             width: 100%;
-            height: 450px; /* Stała wysokość mapy */
+            height: 450px;
             border: 0;
             border-radius: 0.5rem;
             filter: grayscale(1);
@@ -352,6 +352,10 @@
             padding: 2rem;
             border-radius: 0.5rem;
             text-align: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .contact-card h3 {
             font-size: 1.5rem;
@@ -481,14 +485,12 @@
             <div class="container">
                 <h2 class="section-title">Skontaktuj się z Nami</h2>
                 <p class="section-subtitle">Masz pytania lub chcesz zarezerwować termin? Czekamy na Twoją wiadomość. Jesteśmy tutaj, aby pomóc!</p>
-                
                 <h3 class="location-heading">Nasza Lokalizacja</h3>
                 <p class="location-subheading">Znajdziesz nas w samym sercu nadmorskiego kurortu. Poniższa mapa pomoże Ci bez trudu do nas dotrzeć.</p>
-                
                 <div class="contact-grid">
                     <div class="map-container">
                         <iframe 
-                            src="http://googleusercontent.com/maps.google.com/3"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2358.705881079313!2d14.44503731585465!3d53.92881198010461!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4700977803d35597%3A0x403b3a6369ac22a3!2sPromenada%20Gwiazd%2C%20Mi%C4%99dzyzdroje!5e0!3m2!1spl!2spl!4v1672864009581!5m2!1spl!2spl" 
                             allowfullscreen="" 
                             loading="lazy" 
                             referrerpolicy="no-referrer-when-downgrade">
